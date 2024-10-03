@@ -52,3 +52,96 @@ Order (Osäker)
 orderId
 username
 status
+
+
+Kod från pdf
+Databasen för persistens.
+package myapp.bo;
+import myapp.db.Item;
+public class Item {
+private int id;
+private String name;
+private int price;
+static public Collection searchItems(String
+group)
+{
+return ItemDB.searchItems(group);
+}
+protected Item(int id , String name) {
+this.id = id;
+this.name = name;
+}
+public String getName() {
+return name;
+}
+}
+
+
+package myapp.db;
+public class ItemDB extends Item {
+    public static Collection searchItems(String
+    group) {
+        Vector v = new Vector();
+        Connection con = DBManager.getConnetion();
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeStatement("select
+        item_id, name from Item where
+        item_group = "+group);
+        while (rs.next()) {
+            int i = rs.getInt("item_id");
+            String name = rs.getString("name");
+            v.addElement(new ItemDB(i, name));
+        }
+        return v;
+    }
+    private ItemDB(int id, String name) {
+    super(id, name);
+    }
+}
+
+
+
+package myapp.bo;
+public class LookItems {
+    public Hashtable getItemsWithGroup(String s) {
+        Collection c = Item.searchItems(s);
+        Hashtable t = new HashTable();
+        t.put("size", c.size());
+        for (int i = 0, Iterator it = c.iterator();
+        it.hasNext(); i++) {
+            Hashtable item = new Hashtable();
+            Item i = (Item) it.next();
+            items.put("name", i.getName());
+            items.put("price", i.getPrice());
+            t.put("Item"+i, item);
+        }
+    return t;
+    }
+}
+
+
+
+
+<%@page import="myapp.bo.LookItems" %>
+<%@page import="java.util.Hashtable" >%
+<%
+String group =
+request.getParameter("itemGroup");
+LookItems look = new LookItems();
+HashTable table =
+look.getItemsWithGroup(group);
+int size = table.get("size");
+%>
+<table>
+<%
+for (int i = 0 ; i < size ; i++) {
+Hashtable item = table.get ("Item"+i);
+%>
+<tr>
+<td> name </td> <td> <%= item.get("name")
+%> </td>
+<td> price </td> <td> <%= item.get("price")
+%> </td>
+</tr>
+<% } %>
+</table>
