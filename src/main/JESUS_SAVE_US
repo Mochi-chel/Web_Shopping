@@ -1,0 +1,54 @@
+Betyg 3
+Cart
+List product
+Method: AddProductToCart, ShowCart
+
+Product
+Name
+Price (Optional)
+Description (Optional)
+
+Consumer
+Name
+
+Betyg 4
+Product
+Name
+Amount of product
+Price (Optional)
+Description (Optional)
+
+Consumer - Kan endast handla
+Name
+
+Staff - Kan Vad kan den göra?
+Name
+
+Admin - Vad kan den göra?
+Name
+
+Betyg 5
+Staff - Kan se ordrar och packa dem
+
+
+Admin - create product, edit product, delete product, addToCategory
+
+Kanske kommer behöva ha logga in som personal eller konsument?
+Nej, databasen får ha "Usertype" entitet, så att den kan identifiera direkt
+om vilken typ av användare det är.
+
+
+Database
+User
+username
+password
+type
+
+Product
+Name
+AmountOfProduct
+
+Order (Osäker)
+orderId
+username
+status
