@@ -4,10 +4,35 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Vector;
 
 public class ItemDB extends Item{
+
+    public static List<Item> getAllItems() {
+        List<Item> items = new ArrayList<>();
+        String url = "jdbc:sqlite:mydatabase.db"; // Ditt databas-URL
+
+        try (Connection conn = DBManager.getConnection();
+             Statement stmt = conn.createStatement()) {
+
+            ResultSet rs = stmt.executeQuery("SELECT id, name, price FROM items");
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                double price = rs.getDouble("price");
+                items.add(new Item(name, id, price));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return items;
+    }
+
+
+    //Metod från Reine
     public static Collection searchItems(String group) throws SQLException {
         Vector v = new Vector();
         Connection con = DBManager.getConnection();
