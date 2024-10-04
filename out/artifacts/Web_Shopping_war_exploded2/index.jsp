@@ -7,7 +7,7 @@
     <title>Välkommen till Webbutiken</title>
 </head>
 <body>
-<h1>Välkommen till Webbutiken!</h1>
+<h1>Webbutik!</h1>
 <form action="Login" method="get">
     <button type="submit">Logga in</button>
 </form>

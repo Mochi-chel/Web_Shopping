@@ -1,5 +1,6 @@
 package View;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,32 +12,44 @@ import java.io.PrintWriter;
 @WebServlet("/Login")
 public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
+        RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+        dispatcher.forward(request, response);
 
-        out.println("<html>");
-        out.println("<head><title>Logga in</title></head>");
-        out.println("<body>");
-        out.println("<h1>Logga in</h1>");
-        out.println("<form action='LoginServlet' method='post'>");
-        out.println("Användarnamn: <input type='text' name='username'><br>");
-        out.println("Lösenord: <input type='password' name='password'><br>");
-        out.println("<button type='submit'>Logga in</button>");
-        out.println("</form>");
-        out.println("</body>");
-        out.println("</html>");
     }
 
+    //@Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Hämta användarnamn och lösenord från formuläret
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        // Enkel kontroll för demonstration
-        if ("admin".equals(username) && "1234".equals(password)) {
-            response.getWriter().println("Välkommen " + username + "!");
+        // Kontrollera användarnamn och lösenord (mock-up för enkelhetens skull)
+        boolean validUser = validateUser(username, password);
+
+        if (validUser) {
+            // Om användaren är giltig, sätt attribut och skicka tillbaka till JSP med meddelande
+            request.setAttribute("loginSuccess", true);
+            request.setAttribute("message", "Inloggningen lyckades. Välkommen, " + username + "!");
         } else {
-            response.getWriter().println("Fel användarnamn eller lösenord!");
+            // Felmeddelande om inloggningen misslyckas
+            request.setAttribute("loginSuccess", false);
+            request.setAttribute("message", "Felaktigt användarnamn eller lösenord.");
         }
+
+        // Skicka tillbaka till samma login.jsp (forward)
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+        dispatcher.forward(request, response);
+
+    }
+
+    private boolean validateUser(String username, String password) {
+
+        //Kontroll mot databasen
+
+
+
+        return true;//"admin".equals(username) && "password123".equals(password);
     }
 }
 
