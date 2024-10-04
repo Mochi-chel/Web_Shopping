@@ -8,55 +8,10 @@ import java.util.Vector;
 
 public class ItemDB extends Item{
 
-    /*public static List<Item> getAllItems() {
-        List<Item> items = new ArrayList<>();
-        String url = "jdbc:sqlite:mydatabase.db"; // Ditt databas-URL
-
-        try (Connection conn = DBManager.getConnection();
-             Statement stmt = conn.createStatement()) {
-
-            ResultSet rs = stmt.executeQuery("SELECT id, name, price FROM items");
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
-                double price = rs.getDouble("price");
-
-
-                items.add(new Item(name, id, price));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return items;
-    }*/
-
-    public static List<Item> getAllItems() {
-        List<Item> items = new ArrayList<>();
-        Connection conn = null; // Initiera anslutningen
-
-        try {
-            conn = DBManager.getConnection(); // Försök att hämta en anslutning
-            Statement stmt = conn.createStatement(); // Om anslutningen är null här, kommer detta att ge ett fel
-            ResultSet rs = stmt.executeQuery("SELECT id, name, price FROM items");
-
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
-                double price = rs.getDouble("price");
-                items.add(new Item(name, id, price));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace(); // Skriver ut eventuella SQL-fel
-        } finally {
-            DBManager.closeConnection(conn); // Stänger anslutningen
-        }
-
-        return items;
-    }
-
+    //private static String DB_URL = "jdbc:sqlite:C:/Theodors_grejor/Distribuerade system/Web_Shopping/mydatabase.db";
 
     //Metod från Reine
-    public static Collection searchItems(String group) throws SQLException {
+    /*public static Collection searchItems(String group) throws SQLException {
         Vector v = new Vector();
         Connection con = DBManager.getConnection();
         Statement st = con.createStatement();
@@ -67,20 +22,39 @@ public class ItemDB extends Item{
             v.addElement(new ItemDB(i, name));
         }
         return v;
-    }
+    }*/
 
     private ItemDB(int id, String name) {
         super(id, name);
     }
 
+    public static List<Item> getAllItems() {
+        List<Item> items = new ArrayList<>(); // Lista för att lagra alla hämtade items
+        String query = "SELECT * FROM items"; // Fråga för att hämta alla items
+
+        try (Connection con = DBManager.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(query);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                double price = rs.getDouble("price");
+                items.add(new Item(name, id, price));  // Lägg till varje objekt i listan
+            }
+        } catch (SQLException e) {
+            System.err.println("Fel vid hämtning av alla items: " + e.getMessage());
+            throw new RuntimeException("Fel vid hämtning av alla items", e);
+        } 
+
+        return items; // Returnera listan med alla items
+    }
+
+
     public static Item getItemById(int id, Controller controller) {
         Connection con = null; // Få en anslutning till databasen
-        String dbPath = "C:/Theodors_grejor/Distribuerade system/Web_Shopping/mydatabase.db";
-        try {
-            con = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        con = DBManager.getConnection();
+
         String query = "SELECT * FROM items WHERE id = ?";
 
         try (PreparedStatement pstmt = con.prepareStatement(query)) {
@@ -106,8 +80,6 @@ public class ItemDB extends Item{
         }
     }
 
-
-
     public static boolean addItem(String name, double price) {
         Connection con = DBManager.getConnection();
         String insertSQL = "INSERT INTO items (name, price) VALUES (?, ?)";
@@ -127,7 +99,4 @@ public class ItemDB extends Item{
         }
         return false;
     }
-
-
-
 }
