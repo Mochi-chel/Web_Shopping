@@ -5,9 +5,10 @@ import jakarta.servlet.http.HttpServlet; // Ändrat från javax till jakarta
 import jakarta.servlet.http.HttpServletRequest; // Ändrat från javax till jakarta
 import jakarta.servlet.http.HttpServletResponse; // Ändrat från javax till jakarta
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-public class Controller extends HttpServlet {
+public class Controller/* extends HttpServlet */{
     private DBManager dbManager;
     private boolean userStatus;
     private boolean connectionStatus;
@@ -16,13 +17,26 @@ public class Controller extends HttpServlet {
         dbManager = new DBManager();
     }
 
-    @Override
+    public DBManager getDbManager(){
+        return dbManager;
+    }
+
+    /*@Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Item> items = ItemDB.getAllItems(); // Hämta alla items
+        //List<Item> items = ItemDB.getAllItems(); // Hämta alla items
+
+        Item item = ItemDB.getItemById(2, this);
+
+        List<Item> items = new ArrayList<Item>();
+        //items.add(new Item("Jacka", 1, 500));
+        items.add(item);
+
         request.setAttribute("itemList", items); // Sätta attributet i requestet
+
         request.getRequestDispatcher("/WEB-INF/views/items.jsp").forward(request, response); // Vidarebefordra till JSP
-    }
+    }*/
+
 
     public void addUser(/*Input från frontend (username, password och userType)*/){
         /*

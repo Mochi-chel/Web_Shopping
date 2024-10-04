@@ -9,6 +9,7 @@ public class DBManager {
 
     // Metod för att skapa och returnera en anslutning
     public static Connection getConnection() {
+        System.out.println("Hi!");
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(DB_URL);

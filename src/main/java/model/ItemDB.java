@@ -1,9 +1,6 @@
 package model;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -75,4 +72,40 @@ public class ItemDB extends Item{
     private ItemDB(int id, String name) {
         super(id, name);
     }
+
+    public static Item getItemById(int id, Controller controller) {
+        Connection con = null; // Få en anslutning till databasen
+        System.out.println("HIIIIIII");
+        try {
+            con = DriverManager.getConnection("jdbc:sqlite:mydatabase.db");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("MAA PAKAAA");
+        String query = "SELECT * FROM items WHERE id = ?";
+
+        try (PreparedStatement pstmt = con.prepareStatement(query)) {
+            pstmt.setInt(1, id); // Ställ in id som parameter
+
+            System.out.println("HelloKITTY");
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    // Om vi får ett resultat, skapa ett Item-objekt
+                    String name = rs.getString("name");
+                    double price = rs.getDouble("price");
+                    return new Item(name, id, price); // Returnera det skapade Item-objektet
+                } else {
+                    // Om inget resultat hittas
+                    System.out.println("Item med ID " + id + " hittades inte.");
+                    return null;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+
 }
