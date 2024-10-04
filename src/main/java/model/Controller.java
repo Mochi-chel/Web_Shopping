@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Controller/* extends HttpServlet */{
+public class Controller extends HttpServlet {
     private DBManager dbManager;
     private boolean userStatus;
     private boolean connectionStatus;
@@ -21,7 +21,7 @@ public class Controller/* extends HttpServlet */{
         return dbManager;
     }
 
-    /*@Override
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //List<Item> items = ItemDB.getAllItems(); // Hämta alla items
@@ -35,7 +35,7 @@ public class Controller/* extends HttpServlet */{
         request.setAttribute("itemList", items); // Sätta attributet i requestet
 
         request.getRequestDispatcher("/WEB-INF/views/items.jsp").forward(request, response); // Vidarebefordra till JSP
-    }*/
+    }
 
 
     public void addUser(/*Input från frontend (username, password och userType)*/){

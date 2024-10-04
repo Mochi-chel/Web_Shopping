@@ -76,13 +76,23 @@ public class ItemDB extends Item{
     public static Item getItemById(int id, Controller controller) {
         Connection con = null; // Få en anslutning till databasen
         System.out.println("HIIIIIII");
+        String dbPath = "C:/Theodors_grejor/Distribuerade system/Web_Shopping/mydatabase.db";
         try {
-            con = DriverManager.getConnection("jdbc:sqlite:mydatabase.db");
+            con = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         System.out.println("MAA PAKAAA");
         String query = "SELECT * FROM items WHERE id = ?";
+
+        /*
+        try(PreparedStatement pstmt2 = con.prepareStatement(query)){
+            System.out.println("IT WORKED!");
+            return new Item("Anka", 2, 200);
+        } catch (SQLException e){
+            System.out.println("DIDNT WORK!");
+            throw new RuntimeException(e.getMessage());
+        }*/
 
         try (PreparedStatement pstmt = con.prepareStatement(query)) {
             pstmt.setInt(1, id); // Ställ in id som parameter
