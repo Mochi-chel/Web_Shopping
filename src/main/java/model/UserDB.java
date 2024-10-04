@@ -53,12 +53,13 @@ public class UserDB {
         }
     }
 
-    public static User.UserType getUserType(String userNAme){
+    public static User.UserType getUserType(String userName){
         Connection con = DBManager.getConnection();
 
         String query = "SELECT userType FROM user WHERE username = ?";
 
         try (PreparedStatement pstmt = con.prepareStatement(query)){
+            pstmt.setString(1, userName);
 
             try(ResultSet rs = pstmt.executeQuery()){
                 if(rs.next()){
