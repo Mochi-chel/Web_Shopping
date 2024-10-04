@@ -18,12 +18,8 @@ public class SQLiteConnectionTest {
 
                 // Skapa tabellen om den inte redan finns
                 createItemsTable(conn);
-
-                // Infoga testdata
-                insertTestData(conn);
-
-                // Hämta och visa data
-                fetchAndDisplayItems(conn);
+                createUserTable(conn);
+                createOrderTable(conn);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -34,14 +30,53 @@ public class SQLiteConnectionTest {
         String createTableSQL = "CREATE TABLE IF NOT EXISTS items (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "name TEXT NOT NULL," +
-                "price REAL NOT NULL," +
-                "item_group TEXT" +
+                "price REAL NOT NULL" +
                 ");";
 
         try (Statement stmt = conn.createStatement()) {
             stmt.execute(createTableSQL);
             System.out.println("Tabellen 'items' skapades eller existerar redan.");
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void createUserTable(Connection conn){
+        String createTableSQL = "CREATE TABLE IF NOT EXISTS user (" +
+                "username TEXT PRIMARY KEY," +
+                "password TEXT NOT NULL," +
+                "userType TEXT NOT NULL" +
+                ");";
+        try (Statement stmt = conn.createStatement()){
+            stmt.execute(createTableSQL);
+            System.out.println("Tabellen 'user' skapades eller existerar redan");
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void createOrderTable(Connection conn){
+        try (Statement stmt = conn.createStatement()) {
+            stmt.execute("PRAGMA foreign_keys = ON;");
+        } catch (SQLException e) {
+            System.out.println("Kunde inte aktivera främmande nycklar: " + e.getMessage());
+        }
+
+
+        String createTableSQL = "CREATE TABLE IF NOT EXISTS orders (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "username TEXT NOT NULL," +
+                "itemId INTEGER NOT NULL," +
+                "status TEXT NOT NULL," +
+                "FOREIGN KEY (username) REFERENCES user(username)," +
+                "FOREIGN KEY (itemId) REFERENCES item(id)" +
+                ");";
+
+
+        try (Statement stmt = conn.createStatement()){
+            stmt.execute(createTableSQL);
+            System.out.println("Tabellen 'orders' skapades eller existerar redan");
+        } catch (SQLException e){
             System.out.println(e.getMessage());
         }
     }
