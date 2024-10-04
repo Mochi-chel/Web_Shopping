@@ -8,6 +8,7 @@
         </element>
       </element>
       <element id="javaee-facet-resources" facet="Web_Shopping/web/Web" />
+      <element id="file-copy" path="$PROJECT_DIR$/../../../sqlite-jdbc-3.42.0.0.jar" />
     </root>
   </artifact>
 </component>

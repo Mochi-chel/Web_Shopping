@@ -11,7 +11,7 @@ import java.util.Vector;
 
 public class ItemDB extends Item{
 
-    public static List<Item> getAllItems() {
+    /*public static List<Item> getAllItems() {
         List<Item> items = new ArrayList<>();
         String url = "jdbc:sqlite:mydatabase.db"; // Ditt databas-URL
 
@@ -23,11 +23,37 @@ public class ItemDB extends Item{
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 double price = rs.getDouble("price");
+
+
                 items.add(new Item(name, id, price));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return items;
+    }*/
+
+    public static List<Item> getAllItems() {
+        List<Item> items = new ArrayList<>();
+        Connection conn = null; // Initiera anslutningen
+
+        try {
+            conn = DBManager.getConnection(); // Försök att hämta en anslutning
+            Statement stmt = conn.createStatement(); // Om anslutningen är null här, kommer detta att ge ett fel
+            ResultSet rs = stmt.executeQuery("SELECT id, name, price FROM items");
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                double price = rs.getDouble("price");
+                items.add(new Item(name, id, price));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Skriver ut eventuella SQL-fel
+        } finally {
+            DBManager.closeConnection(conn); // Stänger anslutningen
+        }
+
         return items;
     }
 

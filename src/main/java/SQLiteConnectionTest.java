@@ -1,3 +1,6 @@
+import model.Controller;
+import model.DBManager;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -17,10 +20,10 @@ public class SQLiteConnectionTest {
                 createItemsTable(conn);
 
                 // Infoga testdata
-                //insertTestData(conn);
+                insertTestData(conn);
 
                 // Hämta och visa data
-                // fetchAndDisplayItems(conn);
+                fetchAndDisplayItems(conn);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -43,7 +46,7 @@ public class SQLiteConnectionTest {
         }
     }
 
-    /*private static void insertTestData(Connection conn) {
+    private static void insertTestData(Connection conn) {
         String insertSQL = "INSERT INTO items (name, price, item_group) VALUES " +
                 "('Laptop', 999.99, 'Electronics'), " +
                 "('Book', 29.99, 'Literature'), " +
@@ -74,5 +77,5 @@ public class SQLiteConnectionTest {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-    }*/
+    }
 }

@@ -8,7 +8,9 @@
   <properties>
     <maven.compiler.source>20</maven.compiler.source>
     <maven.compiler.target>20</maven.compiler.target>
+      <maven.plugin.validation>VERBOSE</maven.plugin.validation>
   </properties>
+
   <version>1.0-SNAPSHOT</version>
   <name>Web_Shopping Maven Webapp</name>
   <url>http://maven.apache.org</url>
@@ -27,9 +29,9 @@
     </dependency>
 
     <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
-      <version>3.1.0</version> <!-- eller den senaste versionen -->
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
+      <version>5.0.0</version> <!-- eller den version du använder -->
       <scope>provided</scope>
     </dependency>
 
@@ -44,6 +46,16 @@
           <source>20</source>
           <target>20</target>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.3.0</version> <!-- Eller en nyare version -->
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.3.2</version> <!-- Eller en nyare version -->
       </plugin>
     </plugins>
     <finalName>Web_Shopping</finalName>
