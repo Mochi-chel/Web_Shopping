@@ -51,7 +51,7 @@ public class ItemDB extends Item{
     }
 
 
-    public static Item getItemById(int id, Controller controller) {
+    public static Item getItemById(int id) {
         Connection con = null; // Få en anslutning till databasen
         con = DBManager.getConnection();
 

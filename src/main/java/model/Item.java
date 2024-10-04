@@ -35,6 +35,11 @@ public class Item {
     public double getPrice(){
         return this.price;
     }
+
+    @Override
+    public String toString() {
+        return "Id: " + id + "Name: " + name + ", price: " + price;
+    }
 }
 /*public class Item {
 private int id;

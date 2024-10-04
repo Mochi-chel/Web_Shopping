@@ -26,7 +26,7 @@ public class Controller extends HttpServlet {
             throws ServletException, IOException {
         //List<Item> items = ItemDB.getAllItems(); // Hämta alla items
 
-        Item item = ItemDB.getItemById(2, this);
+        Item item = ItemDB.getItemById(2);
 
         List<Item> items = new ArrayList<Item>();
         //items.add(new Item("Jacka", 1, 500));

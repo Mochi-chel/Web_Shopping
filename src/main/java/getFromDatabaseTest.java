@@ -11,7 +11,7 @@ public class getFromDatabaseTest {
     public static void main(String[] args){
         Controller controller = new Controller();
 
-        Item item = ItemDB.getItemById(2, controller);
+        Item item = ItemDB.getItemById(2);
 
         System.out.println("Id: " + item.getId() + "\nNamn: " + item.getName() + "\nPris: " + item.getPrice());
     }

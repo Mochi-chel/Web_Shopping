@@ -6,8 +6,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.User;
+
 import java.io.IOException;
 import java.io.PrintWriter;
+
+import static model.UserDB.*;
 
 @WebServlet("/Login")
 public class LoginServlet extends HttpServlet {
@@ -47,9 +51,16 @@ public class LoginServlet extends HttpServlet {
 
         //Kontroll mot databasen
 
+        if(checkIfUsernameAlreadyExists(username)){
+            if(password.equals(getPassword(username))){
+                User user = new User(username, getUserType(username));      //Det här är den inloggade personen
+                return true;
+            }
+        }
 
+        return false;
 
-        return true;//"admin".equals(username) && "password123".equals(password);
+        //return true;//"admin".equals(username) && "password123".equals(password);
     }
 }
 

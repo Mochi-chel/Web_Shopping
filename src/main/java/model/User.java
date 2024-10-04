@@ -2,7 +2,7 @@ package model;
 
 public class User {
 
-    public enum UserType {
+    public static enum UserType {
         admin, customer, staff
     }
 
