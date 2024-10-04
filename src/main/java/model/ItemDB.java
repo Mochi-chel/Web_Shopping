@@ -28,26 +28,34 @@ public class ItemDB extends Item{
         super(id, name);
     }
 
+    /* Gets all items from data
+     * */
     public static List<Item> getAllItems() {
-        List<Item> items = new ArrayList<>(); // Lista för att lagra alla hämtade items
-        String query = "SELECT * FROM items"; // Fråga för att hämta alla items
+        Connection con = null;  // Skapa en Connection
+        List<Item> items = new ArrayList<>();  // Lista för att lagra alla hämtade items
+        String query = "SELECT * FROM items";  // SQL-fråga
 
-        try (Connection con = DBManager.getConnection();
-             PreparedStatement pstmt = con.prepareStatement(query);
-             ResultSet rs = pstmt.executeQuery()) {
+        try {
+            con = DBManager.getConnection();  // Hämta anslutning
+            try (PreparedStatement pstmt = con.prepareStatement(query);
+                 ResultSet rs = pstmt.executeQuery()) {
 
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
-                double price = rs.getDouble("price");
-                items.add(new Item(name, id, price));  // Lägg till varje objekt i listan
+                // Iterera över resultatet och skapa Item-objekt för varje rad
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    String name = rs.getString("name");
+                    double price = rs.getDouble("price");
+                    items.add(new Item(name, id, price));  // Lägg till varje objekt i listan
+                }
             }
         } catch (SQLException e) {
             System.err.println("Fel vid hämtning av alla items: " + e.getMessage());
             throw new RuntimeException("Fel vid hämtning av alla items", e);
-        } 
+        } finally {
+            DBManager.closeConnection(con);  // Stäng anslutningen efter användning
+        }
 
-        return items; // Returnera listan med alla items
+        return items;
     }
 
 
@@ -77,6 +85,8 @@ public class ItemDB extends Item{
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             throw new RuntimeException(e.getMessage());
+        }finally {
+            DBManager.closeConnection(con);  // Stäng anslutningen efter användning
         }
     }
 
@@ -96,6 +106,9 @@ public class ItemDB extends Item{
             }
         } catch (SQLException e) {
             System.out.println("Could not add user to DB!");
+        }
+        finally {
+            DBManager.closeConnection(con);  // Stäng anslutningen efter användning
         }
         return false;
     }

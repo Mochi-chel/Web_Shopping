@@ -22,6 +22,8 @@ public class UserDB {
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());  // Hantera eventuella SQL-fel
+        }finally {
+            DBManager.closeConnection(con);  // Stäng anslutningen efter användning
         }
         return false;  // Användaren finns inte
     }
@@ -50,6 +52,8 @@ public class UserDB {
             }
         } catch (SQLException e){
             throw new RuntimeException("Could not execute query: SELECT password FROM user WHERE username = ?");
+        }finally {
+            DBManager.closeConnection(con);  // Stäng anslutningen efter användning
         }
     }
 
@@ -72,12 +76,13 @@ public class UserDB {
 
         } catch (SQLException e){
             throw new RuntimeException("Could not execute query: SELECT userType FROM user WHERE username = ?");
+        }finally {
+            DBManager.closeConnection(con);  // Stäng anslutningen efter användning
         }
-
-
-
         //return new User("GoGa", User.UserType.admin);
     }
+
+
 
     public static boolean addUser(User user, String password) throws SQLException {
         Connection con = DBManager.getConnection();
@@ -97,6 +102,8 @@ public class UserDB {
             }
         } catch (SQLException e) {
             System.out.println("Could not add user to DB!");
+        }finally {
+            DBManager.closeConnection(con);  // Stäng anslutningen efter användning
         }
 
         return false;
