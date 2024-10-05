@@ -24,13 +24,13 @@ public class Controller extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //List<Item> items = ItemDB.getAllItems(); // Hämta alla items
+        List<Item> items = ItemDB.getAllItems(); // Hämta alla items
 
-        Item item = ItemDB.getItemById(2);
+        //Item item = ItemDB.getItemById(2);
 
-        List<Item> items = new ArrayList<Item>();
+        //List<Item> items = new ArrayList<Item>();
         //items.add(new Item("Jacka", 1, 500));
-        items.add(item);
+        //items.add(item);
 
         request.setAttribute("itemList", items); // Sätta attributet i requestet
 

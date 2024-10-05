@@ -6,7 +6,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.User;
+import model.UserDB;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -34,16 +36,24 @@ public class LoginServlet extends HttpServlet {
             // Om användaren är giltig, sätt attribut och skicka tillbaka till JSP med meddelande
             request.setAttribute("loginSuccess", true);
             request.setAttribute("message", "Inloggningen lyckades. Välkommen, " + username + "!");
+
+            HttpSession session = request.getSession();
+            session.setAttribute("username", username);
+            session.setAttribute("userType", getUserType(username));
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("shopSite.jsp");
+            dispatcher.forward(request, response);
         } else {
             // Felmeddelande om inloggningen misslyckas
             request.setAttribute("loginSuccess", false);
             request.setAttribute("message", "Felaktigt användarnamn eller lösenord.");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+            dispatcher.forward(request, response);
         }
 
         // Skicka tillbaka till samma login.jsp (forward)
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
-        dispatcher.forward(request, response);
+
 
     }
 
@@ -53,7 +63,6 @@ public class LoginServlet extends HttpServlet {
 
         if(checkIfUsernameAlreadyExists(username)){
             if(password.equals(getPassword(username))){
-                User user = new User(username, getUserType(username));      //Det här är den inloggade personen
                 return true;
             }
         }
@@ -61,6 +70,10 @@ public class LoginServlet extends HttpServlet {
         return false;
 
         //return true;//"admin".equals(username) && "password123".equals(password);
+    }
+
+    public User.UserType getUserType(String userName){
+        return UserDB.getUserType(userName);
     }
 }
 

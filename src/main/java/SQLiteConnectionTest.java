@@ -30,7 +30,9 @@ public class SQLiteConnectionTest {
         String createTableSQL = "CREATE TABLE IF NOT EXISTS items (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "name TEXT NOT NULL," +
-                "price REAL NOT NULL" +
+                "price REAL NOT NULL," +
+                "stock INTEGER NOT NULL," +
+                "itemGroup TEXT NOT NULL" +
                 ");";
 
         try (Statement stmt = conn.createStatement()) {

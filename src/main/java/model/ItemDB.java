@@ -45,7 +45,9 @@ public class ItemDB extends Item{
                     int id = rs.getInt("id");
                     String name = rs.getString("name");
                     double price = rs.getDouble("price");
-                    items.add(new Item(name, id, price));  // Lägg till varje objekt i listan
+                    int stock = rs.getInt("stock");
+                    String itemGroup = rs.getString("itemGroup");
+                    items.add(new Item(name, id, price, stock, itemGroup));  // Lägg till varje objekt i listan
                 }
             }
         } catch (SQLException e) {
@@ -75,7 +77,9 @@ public class ItemDB extends Item{
                     // Om vi får ett resultat, skapa ett Item-objekt
                     String name = rs.getString("name");
                     double price = rs.getDouble("price");
-                    return new Item(name, id, price); // Returnera det skapade Item-objektet
+                    int stock = rs.getInt("stock");
+                    String itemGroup = rs.getString("itemGroup");
+                    return new Item(name, id, price, stock, itemGroup); // Returnera det skapade Item-objektet
                 } else {
                     // Om inget resultat hittas
                     System.out.println("Item med ID " + id + " hittades inte.");
@@ -90,13 +94,15 @@ public class ItemDB extends Item{
         }
     }
 
-    public static boolean addItem(String name, double price) {
+    public static boolean addItem(String name, double price, int stock, String group) {
         Connection con = DBManager.getConnection();
-        String insertSQL = "INSERT INTO items (name, price) VALUES (?, ?)";
+        String insertSQL = "INSERT INTO items (name, price, stock, itemGroup) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement pstmt = con.prepareStatement(insertSQL)) {
             pstmt.setString(1, name);
             pstmt.setDouble(2, price);
+            pstmt.setInt(3, stock);
+            pstmt.setString(4, group);
 
             int rowsInserted = pstmt.executeUpdate();
 

@@ -1,0 +1,95 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.List" %>
+<%@ page import="model.Item" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Items List</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Lägg till eventuell CSS här -->
+</head>
+<body>
+<h1>Items List</h1>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Item Group</th>
+        <th>Button</th>
+    </tr>
+    </thead>
+    <tbody>
+    <%
+        // Hämta listan med items från förfrågan
+        List<Item> items = (List<Item>) request.getAttribute("items");
+
+        // Iterera över items och visa namn och pris
+        for (Item item : items) {
+    %>
+    <tr>
+        <td><%= item.getName() %></td> <!-- Anta att Item har en getName() metod -->
+        <td><%= item.getPrice() %></td> <!-- Anta att Item har en getPrice() metod -->
+        <td><%= item.getStock() %></td> <!-- Anta att Item har en getPrice() metod -->
+        <td><%= item.getGroup() %></td> <!-- Anta att Item har en getPrice() metod -->
+        <td>
+            <form action="addToCart" method="post"> <!-- Skickar förfrågan till en servlet -->
+                <input type="hidden" name="itemId" value="<%= item.getId() %>"> <!-- Skickar item-id -->
+                <input type="submit" value="Add to Cart"> <!-- Knapp för att lägga till i kundvagn -->
+            </form>
+        </td>
+    </tr>
+    <%
+        }
+    %>
+    </tbody>
+</table>
+
+<h2>Your Shopping Cart</h2>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Amount of Items</th>
+    </tr>
+    </thead>
+    <tbody>
+    <%
+        // Hämta kundvagnen från förfrågan
+        List<Item> cartItems = (List<Item>) request.getAttribute("cartItems");
+        Object totalPriceObj = request.getAttribute("totalPrice");
+        double totalPrice = 0.0;
+
+        if (totalPriceObj != null && totalPriceObj instanceof Double) {
+            totalPrice = (Double) totalPriceObj;
+        }
+
+        // Iterera över kundvagnens items
+        if (cartItems != null && !cartItems.isEmpty()) {
+            for (Item cartItem : cartItems) {
+    %>
+    <tr>
+        <td><%= cartItem.getName() %></td>
+        <td><%= cartItem.getPrice() %></td>
+        <td><%= cartItem.getStock() %></td> <!-- Antal som finns i kundkorgen-->
+    </tr>
+    <%
+        }
+    %>
+    </tbody>
+</table>
+
+<h3>Total Price: <%= totalPrice %></h3>
+
+<% } else { %>
+<tr>
+    <td colspan="4">Your cart is empty.</td>
+</tr>
+<% } %>
+
+</body>
+</html>
