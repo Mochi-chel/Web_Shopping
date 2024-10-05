@@ -24,9 +24,9 @@ public class Item {
         this.price = 0;
     }
 
-    static public Collection searchItems(String group) throws SQLException {
+    /*static public Collection searchItems(String group) throws SQLException {
         return ItemDB.searchItems(group);//Dunno what it is //TODO: GPT
-    }
+    }*/
 
     public int getId(){
         return this.id;
