@@ -7,11 +7,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import model.Item;
+import model.ItemDB;
 import model.User;
 import model.UserDB;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import static model.UserDB.*;
 
@@ -37,12 +40,11 @@ public class LoginServlet extends HttpServlet {
             request.setAttribute("loginSuccess", true);
             request.setAttribute("message", "Inloggningen lyckades. Välkommen, " + username + "!");
 
-            HttpSession session = request.getSession();
-            session.setAttribute("username", username);
-            session.setAttribute("userType", getUserType(username));
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("shopSite.jsp");
-            dispatcher.forward(request, response);
+            HttpSession session = request.getSession();
+            session.setAttribute("user", new User(username, getUserType(username)));
+
+            response.sendRedirect("shopSite");
         } else {
             // Felmeddelande om inloggningen misslyckas
             request.setAttribute("loginSuccess", false);

@@ -16,11 +16,19 @@ public class User {
         this.cart = new Cart();
     }
 
+    public Cart getCart() {
+        return cart;
+    }
+
     public String getUserName(){
         return userName;
     }
 
     public UserType getUserType(){
         return userType;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 }

@@ -23,13 +23,28 @@ public class addToCartServlet extends HttpServlet{
             int itemId = Integer.parseInt(itemIdStr);
             Item item = ItemDB.getItemById(itemId);
 
-            HttpSession session = request.getSession();
-            Cart cart = (Cart) session.getAttribute("cart");
 
+
+            HttpSession session = request.getSession();
+            User user = (User) session.getAttribute("user");
+
+            if (user == null) {
+                response.sendRedirect("login.jsp");
+                return;  // Avsluta metoden här om ingen användare finns i sessionen.
+            }
+
+            Cart cart = user.getCart();
+
+            if (cart == null) {
+                cart = new Cart();
+                user.setCart(cart);
+            }
+
+            /*
             if (cart == null) {
                 cart = new Cart(); // Skapa en ny kundvagn om den inte finns
                 session.setAttribute("cart", cart);
-            }
+            }*/
 
             if(cart.checkIfItemExists(item)){
                 cart.increase(item);
@@ -37,6 +52,9 @@ public class addToCartServlet extends HttpServlet{
             else{
                 cart.addItem(new Item(item.getName(), item.getId(), item.getPrice(), 1, item.getGroup()));
             }
+
+            user.setCart(cart);
+
 
             System.out.println("Here is addToCartServlet! And the size is: " + cart.getList().size());
 

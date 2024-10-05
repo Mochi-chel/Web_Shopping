@@ -68,12 +68,10 @@ public class SQLiteConnectionTest {
         String createTableSQL = "CREATE TABLE IF NOT EXISTS orders (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "username TEXT NOT NULL," +
-                "itemId INTEGER NOT NULL," +
+                "totalPrice REAL NOT NULL," +
                 "status TEXT NOT NULL," +
-                "FOREIGN KEY (username) REFERENCES user(username)," +
-                "FOREIGN KEY (itemId) REFERENCES item(id)" +
+                "FOREIGN KEY (username) REFERENCES user(username)" +
                 ");";
-
 
         try (Statement stmt = conn.createStatement()){
             stmt.execute(createTableSQL);
@@ -81,8 +79,26 @@ public class SQLiteConnectionTest {
         } catch (SQLException e){
             System.out.println(e.getMessage());
         }
+
+        String createOrderItemsTableSQL = "CREATE TABLE IF NOT EXISTS orderItems (" +
+                "orderId INTEGER NOT NULL," +       // Referens till beställning
+                "itemId INTEGER NOT NULL," +        // Referens till artikel
+                "quantity INTEGER NOT NULL," +      // Antal av artikeln
+                "PRIMARY KEY (orderId, itemId), " + // Unik kombination av orderId och itemId
+                "FOREIGN KEY (orderId) REFERENCES orders(id)," +
+                "FOREIGN KEY (itemId) REFERENCES items(id)" +
+                ");";
+
+        try (Statement stmt = conn.createStatement()) {
+            stmt.execute(createOrderItemsTableSQL);
+            System.out.println("Tabellen 'orderItems' skapades eller existerar redan");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
+    /*
     private static void insertTestData(Connection conn) {
         String insertSQL = "INSERT INTO items (name, price, item_group) VALUES " +
                 "('Laptop', 999.99, 'Electronics'), " +
@@ -96,7 +112,9 @@ public class SQLiteConnectionTest {
             System.out.println(e.getMessage());
         }
     }
+    */
 
+    /*
     private static void fetchAndDisplayItems(Connection conn) {
         String selectSQL = "SELECT * FROM items;";
 
@@ -115,4 +133,5 @@ public class SQLiteConnectionTest {
             System.out.println(e.getMessage());
         }
     }
+     */
 }

@@ -47,49 +47,9 @@
     </tbody>
 </table>
 
-<h2>Your Shopping Cart</h2>
-
-<table border="1">
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Amount of Items</th>
-    </tr>
-    </thead>
-    <tbody>
-    <%
-        // Hämta kundvagnen från förfrågan
-        List<Item> cartItems = (List<Item>) request.getAttribute("cartItems");
-        Object totalPriceObj = request.getAttribute("totalPrice");
-        double totalPrice = 0.0;
-
-        if (totalPriceObj != null && totalPriceObj instanceof Double) {
-            totalPrice = (Double) totalPriceObj;
-        }
-
-        // Iterera över kundvagnens items
-        if (cartItems != null && !cartItems.isEmpty()) {
-            for (Item cartItem : cartItems) {
-    %>
-    <tr>
-        <td><%= cartItem.getName() %></td>
-        <td><%= cartItem.getPrice() %></td>
-        <td><%= cartItem.getStock() %></td> <!-- Antal som finns i kundkorgen-->
-    </tr>
-    <%
-        }
-    %>
-    </tbody>
-</table>
-
-<h3>Total Price: <%= totalPrice %></h3>
-
-<% } else { %>
-<tr>
-    <td colspan="4">Your cart is empty.</td>
-</tr>
-<% } %>
+<form action="cart" method="get">
+    <input type="submit" value="Go to Cart">
+</form>
 
 </body>
 </html>
