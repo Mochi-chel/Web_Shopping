@@ -53,6 +53,10 @@ public class Cart {
         return total;
     }
 
+    public void clear(){
+        this.cartItems.clear();
+    }
+
 
     /*private Hashtable<Item, Integer> table;
 

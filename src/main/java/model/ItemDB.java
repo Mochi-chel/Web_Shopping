@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Vector;
 
-public class ItemDB extends Item{
+public class ItemDB/* extends Item*/{
 
     //private static String DB_URL = "jdbc:sqlite:C:/Theodors_grejor/Distribuerade system/Web_Shopping/mydatabase.db";
 
@@ -24,9 +24,9 @@ public class ItemDB extends Item{
         return v;
     }*/
 
-    private ItemDB(int id, String name) {
+    /*private ItemDB(int id, String name) {
         super(id, name);
-    }
+    }*/
 
     /* Gets all items from data
      * */
@@ -118,4 +118,6 @@ public class ItemDB extends Item{
         }
         return false;
     }
+
+
 }

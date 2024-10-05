@@ -1,12 +1,10 @@
-import model.Controller;
-import model.DBManager;
-import model.Item;
-import model.User;
+import model.*;
 
 import java.sql.*;
 import java.util.List;
 
 import static model.ItemDB.*;
+import static model.OrderDB.addOrder;
 import static model.UserDB.*;
 
 public class testThingy {
@@ -34,6 +32,12 @@ public class testThingy {
             System.out.println(i.toString());
         }
         */
+
+        User user = new User("Simon", User.UserType.admin);
+        user.getCart().addItem(new Item("tomato", 2, 10.2, 1, "fruit"));
+        user.getCart().addItem(new Item("candy", 1, 9.99, 100, "sweets"));
+
+        addOrder(new Order(1, 29.89, "SENT", user));
 
     }
 

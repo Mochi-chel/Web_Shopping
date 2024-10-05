@@ -30,12 +30,12 @@
         for (Item item : items) {
     %>
     <tr>
-        <td><%= item.getName() %></td> <!-- Anta att Item har en getName() metod -->
-        <td><%= item.getPrice() %></td> <!-- Anta att Item har en getPrice() metod -->
-        <td><%= item.getStock() %></td> <!-- Anta att Item har en getPrice() metod -->
-        <td><%= item.getGroup() %></td> <!-- Anta att Item har en getPrice() metod -->
+        <td><%= item.getName() %></td>
+        <td><%= item.getPrice() %></td>
+        <td><%= item.getStock() %></td>
+        <td><%= item.getGroup() %></td>
         <td>
-            <form action="addToCart" method="post"> <!-- Skickar förfrågan till en servlet -->
+            <form action="addToCart" method="post">
                 <input type="hidden" name="itemId" value="<%= item.getId() %>"> <!-- Skickar item-id -->
                 <input type="submit" value="Add to Cart"> <!-- Knapp för att lägga till i kundvagn -->
             </form>

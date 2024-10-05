@@ -12,7 +12,7 @@ import java.util.Iterator;
  *
  *
  * */
-public class LookItems {
+/*public class LookItems {
     public Hashtable getItemsWithGroup(String s) throws SQLException {
         Collection c = Item.searchItems(s);
         Hashtable t = new Hashtable();
@@ -33,3 +33,4 @@ public class LookItems {
         return t;
     }
 }
+*/

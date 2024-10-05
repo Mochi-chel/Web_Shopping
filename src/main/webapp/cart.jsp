@@ -11,6 +11,17 @@
 <body>
 <h2>Your Shopping Cart</h2>
 
+<%
+    // Visa meddelande om det finns något (t.ex. efter att ordern lagts in)
+    String message = (String) request.getAttribute("message");
+    if (message != null) {
+%>
+<p style="color: green;"><%= message %></p>
+<%
+    }
+%>
+
+
 <table border="1">
     <thead>
     <tr>
@@ -30,7 +41,6 @@
             totalPrice = (Double) totalPriceObj;
         }
 
-        // Iterera över kundvagnens items
         if (cartItems != null && !cartItems.isEmpty()) {
             // Visa alla produkter i kundvagnen
             for (Item item : cartItems) {
@@ -55,5 +65,8 @@
 
 <h3>Total Price: <%= totalPrice %></h3>
 
+<form action="sendOrder" method="post">
+    <input type="submit" value="Send Order">
+</form>
 </body>
 </html>
