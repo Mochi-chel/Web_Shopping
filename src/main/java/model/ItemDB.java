@@ -120,4 +120,28 @@ public class ItemDB/* extends Item*/{
     }
 
 
+    public static boolean updateStock(int itemId, int quantityJustering) {
+        Connection con = null;
+        String updateSQL = "UPDATE items SET stock = stock + ? WHERE id = ? AND stock + ? >= 0"; // Se till att stock aldrig blir negativt
+
+        try {
+            con = DBManager.getConnection(); // Hämta anslutning till databasen
+            try (PreparedStatement pstmt = con.prepareStatement(updateSQL)) {
+                pstmt.setInt(1, quantityJustering); // Lägga till (eller ta bort) lagret
+                pstmt.setInt(2, itemId);            // Ställ in itemId
+                pstmt.setInt(3, quantityJustering); // För att försäkra att stock + justering >= 0
+
+                int rowsUpdated = pstmt.executeUpdate(); // Kör uppdateringen
+                return rowsUpdated > 0; // Om minst en rad uppdaterades, returnera true
+            }
+        } catch (SQLException e) {
+            System.err.println("Fel vid uppdatering av lager: " + e.getMessage());
+            return false;
+        } finally {
+            DBManager.closeConnection(con); // Stäng anslutningen efter användning
+        }
+    }
+
+
+
 }

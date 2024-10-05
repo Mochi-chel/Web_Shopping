@@ -1,6 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="model.Item" %>
+<%@ page import="model.User" %>
+<%@ page import="model.User.UserType" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,6 +28,8 @@
         // Hämta listan med items från förfrågan
         List<Item> items = (List<Item>) request.getAttribute("items");
 
+        User user = (User) request.getSession().getAttribute("user");
+        User.UserType userType = user.getUserType();
         // Iterera över items och visa namn och pris
         for (Item item : items) {
     %>
@@ -39,11 +43,46 @@
                 <input type="hidden" name="itemId" value="<%= item.getId() %>"> <!-- Skickar item-id -->
                 <input type="submit" value="Add to Cart"> <!-- Knapp för att lägga till i kundvagn -->
             </form>
+
+            <% if(userType.equals(UserType.admin)){
+                %>
+            <% String message = (String) request.getAttribute("message"); %>
+
+            <form action="updateStock" method="post" style="display:inline;">
+                <input type="hidden" name="itemId" value="<%= item.getId() %>">
+                <input type="hidden" name="operation" value="add"> <!-- Indikerar att det är ett "plus" -->
+                <input type="submit" value="+">
+            </form>
+
+            <form action="updateStock" method="post" style="display:inline;">
+                <input type="hidden" name="itemId" value="<%= item.getId() %>">
+                <input type="hidden" name="operation" value="remove"> <!-- Indikerar att det är ett "minus" -->
+                <input type="submit" value="-">
+            </form>
+
+
+            <%
+            }
+            %>
         </td>
     </tr>
     <%
         }
     %>
+
+    <%
+        // Visa knappar baserat på användartyp
+        if (userType != null) {
+            if (userType == UserType.staff || userType == UserType.admin) {
+    %>
+    <form action="viewOrders" method="get">
+        <input type="submit" value="View Order">
+    </form>
+    <%
+            }
+        }
+    %>
+
     </tbody>
 </table>
 
