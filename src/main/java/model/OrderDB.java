@@ -30,6 +30,7 @@ public class OrderDB {
                         if (generatedKeys.next()) {
                             int orderId = generatedKeys.getInt(1);
                             // Anropa addOrderItems med den befintliga anslutningen
+                            //TODO: Kontroll så att lager inte blir negativ! NEED TO CHECK THE DB STOCK --> ANOTHER METHOD IS REQUIRED
                             addOrderItems(con, orderId, order.getUser().getCart().getList());
                             updateStock(con, order.getUser().getCart().getList());
                             isAdded = true;
@@ -125,5 +126,105 @@ public class OrderDB {
             }
         }
         return orderItems;
+    }
+
+    public static List<Order> getAllOrders() throws SQLException {
+        List<Order> orders = new ArrayList<>();
+
+        try (Connection connection = DBManager.getConnection()) {
+            String selectOrdersSQL = "SELECT * FROM orders";
+            try (PreparedStatement pstmt = connection.prepareStatement(selectOrdersSQL)) {
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    while (rs.next()) {
+                        int orderId = rs.getInt("id");
+                        double totalPrice = rs.getDouble("totalPrice");
+                        String status = rs.getString("status");
+                        String username = rs.getString("username");
+
+                        User user = new User(username, User.UserType.customer);
+
+                        // Skapa en Cart för användaren och fyll med items från ordern
+                        Cart cart = new Cart();
+                        List<Item> orderItems = getOrderItems(orderId);
+                        for (Item item : orderItems) {
+                            cart.addItem(item);
+                        }
+                        user.setCart(cart); // Lägg till Cart i User
+
+                        // Skapa order och sätt användaren
+                        Order order = new Order(orderId, totalPrice, status, user);
+                        orders.add(order);
+                    }
+                }
+            }
+        }
+        return orders;
+    }
+
+    public static List<Order> getAllOrdersAAAAA() throws SQLException {
+        List<Order> orders = new ArrayList<>();
+
+        try (Connection connection = DBManager.getConnection()) {
+            String selectOrdersSQL = "SELECT * FROM orders";
+            /*
+            Häma alla orders
+            Häma alla orderItems
+            Plocka ut order (låt os säga oID)
+            skapa user med: username (från order), userType (hämta från DB), cart (se nedan för hur cart sa fixas)
+                Kolla på informationen vi fic från orderItems.
+                SELECT OrderItems WHERE orderId WHERE (oID)
+                gå igenom allt som fås härifrån, det bör vara alla items kollade till en viss order
+                    få information om item genom att:
+                        SELECT item WHERE id = (id som fås från orderItems tabellen)
+                        all info utom quantity fås från item tabellen i DB.
+                        new Item(id, name, price, "quantity" (av det vi får), group)
+
+             */
+
+
+            try (PreparedStatement pstmt = connection.prepareStatement(selectOrdersSQL)) {
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    while (rs.next()) {
+                        int orderId = rs.getInt("id");
+                        double totalPrice = rs.getDouble("totalPrice");
+                        String status = rs.getString("status");
+                        String username = rs.getString("username");
+
+                        User user = new User(username, User.UserType.customer); // Anta att alla är kunder
+
+                        // Hämta alla orderartiklar kopplade till den aktuella ordern
+                        List<Item> orderItems = getOrderItems(orderId);
+                        Cart cart = new Cart();
+
+                        //Lägger orderItems i UserCart
+
+                        Order order = new Order(orderId, totalPrice, status, user);
+                        orders.add(order);
+                    }
+                }
+            }
+        }
+        return orders;
+    }
+
+    public static boolean updateOrderStatus(int orderId, String newStatus) {
+        boolean isUpdated = false;
+
+        String updateSQL = "UPDATE orders SET status = ? WHERE id = ?";
+
+        try (Connection con = DBManager.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(updateSQL)) {
+            pstmt.setString(1, newStatus);
+            pstmt.setInt(2, orderId);
+
+            int affectedRows = pstmt.executeUpdate();
+            if (affectedRows > 0) {
+                isUpdated = true; // Om minst en rad uppdaterades
+            }
+        } catch (SQLException e) {
+            System.out.println("Could not update order status: " + e.getMessage());
+        }
+
+        return isUpdated;
     }
 }
