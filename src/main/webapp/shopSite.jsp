@@ -13,6 +13,15 @@
 <body>
 <h1>Items List</h1>
 
+<%
+    String warning = (String) request.getAttribute("warning");
+    if (warning != null) {
+%>
+<p style="color: red;"><%= warning %></p>
+<%
+    }
+%>
+
 <table border="1">
     <thead>
     <tr>

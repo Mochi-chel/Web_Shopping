@@ -70,7 +70,7 @@ public class ItemDB/* extends Item*/{
         try (PreparedStatement pstmt = con.prepareStatement(query)) {
             pstmt.setInt(1, id); // Ställ in id som parameter
 
-            System.out.println("HelloKITTY");
+            //System.out.println("HelloKITTY");
 
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
@@ -107,7 +107,7 @@ public class ItemDB/* extends Item*/{
             int rowsInserted = pstmt.executeUpdate();
 
             if (rowsInserted > 0) {
-                System.out.println("Item successfully added!");
+                //System.out.println("Item successfully added!");
                 return true;
             }
         } catch (SQLException e) {

@@ -14,7 +14,7 @@ public class DBManager {
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(DB_URL);
-            System.out.println("Anslutning till SQLite-databasen lyckades!");
+            //System.out.println("Anslutning till SQLite-databasen lyckades!");
             try (Statement stmt = conn.createStatement()) {
                 stmt.execute("PRAGMA busy_timeout = 5000;"); // Timeout i millisekunder (5 sek)
             }
@@ -29,7 +29,7 @@ public class DBManager {
         try {
             if (conn != null && !conn.isClosed()) {
                 conn.close();
-                System.out.println("Anslutningen stängdes.");
+                //System.out.println("Anslutningen stängdes.");
             }
         } catch (SQLException e) {
             System.out.println("Fel vid stängning av anslutningen: " + e.getMessage());

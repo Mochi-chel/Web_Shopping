@@ -9,6 +9,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.RequestDispatcher;
 
 import java.io.IOException;
 
@@ -23,14 +24,12 @@ public class addToCartServlet extends HttpServlet{
             int itemId = Integer.parseInt(itemIdStr);
             Item item = ItemDB.getItemById(itemId);
 
-
-
             HttpSession session = request.getSession();
             User user = (User) session.getAttribute("user");
 
             if (user == null) {
                 response.sendRedirect("login.jsp");
-                return;  // Avsluta metoden här om ingen användare finns i sessionen.
+                return;
             }
 
             Cart cart = user.getCart();
@@ -40,31 +39,47 @@ public class addToCartServlet extends HttpServlet{
                 user.setCart(cart);
             }
 
-            /*
-            if (cart == null) {
-                cart = new Cart(); // Skapa en ny kundvagn om den inte finns
-                session.setAttribute("cart", cart);
-            }*/
 
-            if(cart.checkIfItemExists(item)){
-                cart.increase(item);
+            int numberInCart = 0;
+            int index = -1;
+            for (int i = 0; i < cart.getList().size(); i++)
+            {
+                if(cart.getList().get(i).getId() == itemId)
+                {
+                    index = i;
+                    numberInCart = cart.getList().get(i).getStock();
+                    break;
+                }
             }
-            else{
-                cart.addItem(new Item(item.getName(), item.getId(), item.getPrice(), 1, item.getGroup()));
+
+            if((item.getStock() - numberInCart) > 0)
+            {
+                if(index != -1)
+                {
+                    cart.increase(item);
+                }
+                else{
+                    cart.addItem(new Item(item.getName(), item.getId(), item.getPrice(), 1, item.getGroup()));
+                }
+                user.setCart(cart);
+                response.sendRedirect("shopSite");
             }
+            else {
+                request.setAttribute("warning", "Cannot add " + item.getName() + " to cart. Not enough stock.");
 
-            user.setCart(cart);
+                List<Item> items = getAllItems();
+                request.setAttribute("items", items);
+                request.getRequestDispatcher("shopSite.jsp").forward(request, response);
+            }
+            //System.out.println("Here is addToCartServlet! And the size is: " + cart.getList().size());
 
-
-            System.out.println("Here is addToCartServlet! And the size is: " + cart.getList().size());
-
-            for(int i = 0; i < cart.getList().size(); i++)
+            /*for(int i = 0; i < cart.getList().size(); i++)
             {
                 System.out.println(i + ".");
                 System.out.println(cart.getList().get(i).getName() + " " + cart.getList().get(i).getStock() + " " + cart.getList().get(i).getPrice());
-            }
+            }*/
 
-            response.sendRedirect("shopSite");
+
         } else {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Item ID is required.");
         }

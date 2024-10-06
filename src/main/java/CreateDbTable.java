@@ -14,7 +14,7 @@ public class SQLiteConnectionTest {
         // Anslut till databasen
         try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
-                System.out.println("Anslutning till SQLite-databasen lyckades!");
+                //System.out.println("Anslutning till SQLite-databasen lyckades!");
 
                 // Skapa tabellen om den inte redan finns
                 createItemsTable(conn);
