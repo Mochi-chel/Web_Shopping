@@ -11,6 +11,11 @@
     <link rel="stylesheet" href="styles.css"> <!-- Lägg till eventuell CSS här -->
 </head>
 <body>
+<%
+    User user = (User) request.getSession().getAttribute("user");
+    User.UserType userType = user.getUserType();
+%>
+<h4>Logged in as <%= user.getUserName() %>, <%= user.getUserType() %></h4>
 <h1>Items List</h1>
 
 <%
@@ -37,8 +42,7 @@
         // Hämta listan med items från förfrågan
         List<Item> items = (List<Item>) request.getAttribute("items");
 
-        User user = (User) request.getSession().getAttribute("user");
-        User.UserType userType = user.getUserType();
+
         // Iterera över items och visa namn och pris
         for (Item item : items) {
     %>
@@ -70,6 +74,12 @@
             </form>
 
 
+            <form action="updateItemGroup" method="post" style="display:inline;">
+                <input type="hidden" name="itemId" value="<%= item.getId() %>">
+                <input type="text" name="newGroup" placeholder="Enter new group" value="<%= item.getGroup() %>">
+                <input type="submit" value="Update Group">
+            </form>
+
             <%
             }
             %>
@@ -85,10 +95,24 @@
             if (userType == UserType.staff || userType == UserType.admin) {
     %>
     <form action="viewOrders" method="get">
-        <input type="submit" value="View Order">
+        <input type="submit" value="View Orders">
     </form>
     <%
             }
+        }
+    %>
+
+    <%
+        // Lägg till en knapp för att lägga till nytt item, endast för admin
+        if (userType.equals(UserType.admin)) {
+    %>
+    <form action="addItem" method="get">
+        <input type="submit" value="Add New Item">
+    </form>
+    <form action="handleUsers" method="get">
+        <input type="submit" value="Handle users">
+    </form>
+    <%
         }
     %>
 
@@ -97,6 +121,10 @@
 
 <form action="cart" method="get">
     <input type="submit" value="Go to Cart">
+</form>
+
+<form action="logout" method="get">
+    <input type="submit" value="Logout">
 </form>
 
 </body>

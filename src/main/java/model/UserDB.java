@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDB {
 
@@ -107,5 +109,74 @@ public class UserDB {
         }
 
         return false;
+    }
+
+    public static List<User> getAllUsers() {
+        List<User> users = new ArrayList<>();
+        Connection con = DBManager.getConnection();
+
+        String query = "SELECT * FROM user";  // SQL-fråga för att hämta alla användare
+        try (PreparedStatement pstmt = con.prepareStatement(query);
+             ResultSet rs = pstmt.executeQuery()) {  // Kör frågan och hämta resultatet
+
+            while (rs.next()) {
+                String userName = rs.getString("userName");
+                String password = rs.getString("password");  // Om du behöver lösenordet, om inte ta bort denna rad
+                String userTypeStr = rs.getString("userType");
+                User.UserType userType = User.UserType.valueOf(userTypeStr);
+
+                User user = new User(userName, userType); // Anta att User har en konstruktor som tar userName och userType
+                users.add(user);  // Lägg till användaren i listan
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());  // Hantera eventuella SQL-fel
+        } finally {
+            DBManager.closeConnection(con);  // Stäng anslutningen efter användning
+        }
+
+        return users;  // Returnera listan med användare
+    }
+
+    public static boolean deleteUser(String userName) {
+        Connection con = DBManager.getConnection();
+
+        String query = "DELETE FROM user WHERE userName = ?"; // SQL-fråga för att ta bort användaren
+
+        try (PreparedStatement pstmt = con.prepareStatement(query)) {
+            pstmt.setString(1, userName); // Sätt in användarnamnet i SQL-frågan
+
+            int rowsAffected = pstmt.executeUpdate(); // Kör uppdateringen
+            if(rowsAffected > 0){
+                System.out.println("I can delete person");
+            }
+
+            return rowsAffected > 0; // Returera true om en rad raderades
+        } catch (SQLException e) {
+            System.out.println("Error while deleting user: " + e.getMessage()); // Hantera fel
+        } finally {
+            DBManager.closeConnection(con); // Stäng anslutningen
+        }
+
+        System.out.println("Kunde inte radera person");
+
+        return false; // Returera false om något gick fel
+    }
+
+    public static boolean updateUserType(String userName, User.UserType userType) {
+        Connection con = DBManager.getConnection();
+        String updateSQL = "UPDATE user SET userType = ? WHERE userName = ?";
+
+        try (PreparedStatement pstmt = con.prepareStatement(updateSQL)) {
+            pstmt.setString(1, userType.name());
+            pstmt.setString(2, userName);
+
+            int rowsUpdated = pstmt.executeUpdate();
+            return rowsUpdated > 0; // Returnera true om minst en rad uppdaterades
+        } catch (SQLException e) {
+            System.out.println("Could not update user type: " + e.getMessage());
+            return false;
+        } finally {
+            DBManager.closeConnection(con);  // Stäng anslutningen efter användning
+        }
     }
 }

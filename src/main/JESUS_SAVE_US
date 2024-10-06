@@ -166,7 +166,7 @@ Hashtable item = table.get ("Item"+i);
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>View Orders</title>
+    <title>Controller Orders</title>
     <style>
         /* Enkel styling för tabellen */
         table {
@@ -280,3 +280,7 @@ Hashtable item = table.get ("Item"+i);
 
 </body>
 </html>
+
+
+
+<a href="index.jsp">Tillbaka till startsidan</a>

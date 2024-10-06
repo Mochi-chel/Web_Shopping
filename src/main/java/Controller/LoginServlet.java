@@ -1,4 +1,4 @@
-package View;
+package Controller;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -7,14 +7,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import model.Item;
-import model.ItemDB;
 import model.User;
 import model.UserDB;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 
 import static model.UserDB.*;
 

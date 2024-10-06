@@ -142,6 +142,24 @@ public class ItemDB/* extends Item*/{
         }
     }
 
+    public static boolean updateItemGroup(int itemId, String newGroup) {
+        Connection con = null;
+        String updateSQL = "UPDATE items SET itemGroup = ? WHERE id = ?";
 
+        try {
+            con = DBManager.getConnection(); // Hämta anslutning till databasen
+            try (PreparedStatement pstmt = con.prepareStatement(updateSQL)) {
+                pstmt.setString(1, newGroup); // Sätt den nya gruppen från formuläret
+                pstmt.setInt(2, itemId);      // Sätt itemId
 
+                int rowsUpdated = pstmt.executeUpdate(); // Kör uppdateringen
+                return rowsUpdated > 0; // Om minst en rad uppdaterades, returnera true
+            }
+        } catch (SQLException e) {
+            System.err.println("Fel vid uppdatering av item group: " + e.getMessage());
+            return false;
+        } finally {
+            DBManager.closeConnection(con); // Stäng anslutningen efter användning
+        }
+    }
 }

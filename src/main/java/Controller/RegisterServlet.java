@@ -1,4 +1,4 @@
-package View;
+package Controller;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -10,7 +10,6 @@ import model.User;
 import model.User.UserType;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 
 import static model.UserDB.addUser;

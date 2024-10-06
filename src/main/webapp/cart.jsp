@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="styles.css"> <!-- Lägg till eventuell CSS här -->
 </head>
 <body>
+<%
+    User user = (User) request.getSession().getAttribute("user");
+    User.UserType userType = user.getUserType();
+%>
+<h4>Logged in as <%= user.getUserName() %>, <%= user.getUserType() %></h4>
 <h2>Your Shopping Cart</h2>
 
 <%
@@ -85,6 +90,9 @@
 </form>
 <form action="clearCart" method="post" style="margin-top: 20px;">
     <input type="submit" value="Clear Cart">
+</form>
+<form action="goToShopSite" method="get">
+    <input type="submit" value="Go back to shop site"> <!-- Knapp för att lägga till i kundvagn -->
 </form>
 </body>
 </html>

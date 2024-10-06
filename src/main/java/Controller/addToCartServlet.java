@@ -1,6 +1,5 @@
-package View;
+package Controller;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpSession;
 import model.*;
 
@@ -12,6 +11,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.RequestDispatcher;
 
 import java.io.IOException;
+import java.util.List;
+
+import static model.ItemDB.getAllItems;
 
 @WebServlet("/addToCart")
 public class addToCartServlet extends HttpServlet{

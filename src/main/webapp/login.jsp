@@ -25,5 +25,9 @@
   <input type="password" id="password" name="password" required><br>
   <button type="submit">Logga in</button>
 </form>
+
+<form action="goToStart" method="get">
+  <input type="submit" value="Go back to start">
+</form>
 </body>
 </html>

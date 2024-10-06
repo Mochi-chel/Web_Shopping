@@ -8,7 +8,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>View Orders</title>
+    <title>Controller Orders</title>
     <style>
         /* Enkel styling för tabellen */
         table {
@@ -119,6 +119,9 @@
     }
 %>
 
+<form action="goToShopSite" method="get">
+    <input type="submit" value="Go back to shop site"> <!-- Knapp för att lägga till i kundvagn -->
+</form>
 
 </body>
 </html>

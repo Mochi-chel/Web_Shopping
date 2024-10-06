@@ -35,6 +35,8 @@
     <button type="submit">Registrera</button>
 </form>
 
-<a href="index.jsp">Tillbaka till startsidan</a>
+<form action="goToStart" method="get">
+    <input type="submit" value="Go back to start">
+</form>
 </body>
 </html>
