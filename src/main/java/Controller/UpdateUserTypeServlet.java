@@ -32,7 +32,6 @@ public class UpdateUserTypeServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Hämta användarnamnet och den nya användartypen från förfrågan
         String userName = request.getParameter("userName");
         String userTypeStr = request.getParameter("userType");
 
@@ -41,7 +40,7 @@ public class UpdateUserTypeServlet extends HttpServlet {
 
         if (user == null) {
             response.sendRedirect("login.jsp");
-            return;  // Avsluta metoden här om ingen användare finns i sessionen.
+            return;
         }
 
         if(!user.getUserType().equals(User.UserType.admin)){
@@ -50,10 +49,9 @@ public class UpdateUserTypeServlet extends HttpServlet {
             request.getRequestDispatcher("shopSite.jsp").forward(request, response);
         }
 
-        // Konvertera sträng till enum
         User.UserType userType;
         try {
-            userType = User.UserType.valueOf(userTypeStr); // Omvandla sträng till enum
+            userType = User.UserType.valueOf(userTypeStr);
         } catch (IllegalArgumentException e) {
             request.setAttribute("errorMessage", "Invalid user type.");
             List<User> users = getAllUsers();
@@ -62,13 +60,10 @@ public class UpdateUserTypeServlet extends HttpServlet {
             return;
         }
 
-        // Anropa metoden i UserDB för att uppdatera användartypen
         boolean updated = UserDB.updateUserType(userName, userType);
 
         if (updated) {
-            // Om uppdateringen lyckades, omdirigera till hanteringssidan
         } else {
-            // Om uppdateringen misslyckades, skicka ett felmeddelande
             request.setAttribute("errorMessage", "Could not update user type.");
         }
 

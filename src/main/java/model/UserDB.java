@@ -9,21 +9,28 @@ import java.util.List;
 
 public class UserDB {
 
+    /**
+     * Checks if a username already exists in the database.
+     * if the provided username already exists in the "user" table.
+     *
+     * @param userName the username to be checked
+     * @return true if the username already exists in the database, false otherwise
+     */
     public static boolean checkIfUsernameAlreadyExists(String userName){
         Connection con = DBManager.getConnection();
 
         String query = "SELECT * FROM user WHERE userName = ?";
         try (PreparedStatement pstmt = con.prepareStatement(query)) {
 
-            pstmt.setString(1, userName);  // Sätt in användarnamnet i SQL-frågan
+            pstmt.setString(1, userName);
 
-            try (ResultSet rs = pstmt.executeQuery()) {  // Kör frågan och hämta resultatet
-                if (rs.next()) {  // Om det finns en rad i resultatet, finns användaren
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
                     return true;
                 }
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());  // Hantera eventuella SQL-fel
+            System.out.println(e.getMessage());
         }finally {
             DBManager.closeConnection(con);
         }
@@ -32,9 +39,13 @@ public class UserDB {
 
 
     /**
-     * May only be used when username exists.
-     * @param userName
-     * @return
+     * Retrieves the password for a given username from the database.
+     * This method should only be used when the username is confirmed to exist.
+     *
+     * @param userName the username whose password needs to be retrieved
+     * @return the password of the specified user
+     * @throws IllegalStateException if the username is not found in the database
+     * @throws RuntimeException if a SQL execution error occurs during the query
      */
     public static String getPassword(String userName){
         Connection con = DBManager.getConnection();
@@ -59,6 +70,14 @@ public class UserDB {
         }
     }
 
+    /**
+     * Retrieves the user type for a given username from the database.
+     *
+     * @param userName the username whose user type needs to be retrieved
+     * @return the user type of the specified user as an enum of {@link User.UserType}
+     * @throws IllegalStateException if the username is not found in the database
+     * @throws RuntimeException if a SQL execution error occurs during the query
+     */
     public static User.UserType getUserType(String userName){
         Connection con = DBManager.getConnection();
 
@@ -84,7 +103,14 @@ public class UserDB {
     }
 
 
-
+    /**
+     * Adds a new user to the database with the specified username, password, and user type.
+     *
+     * @param user the {@link User} object containing the username and user type to be added
+     * @param password the password for the new user
+     * @return {@code true} if the user was successfully added to the database, {@code false} otherwise
+     * @throws SQLException if a database access error occurs or the SQL query fails
+     */
     public static boolean addUser(User user, String password) throws SQLException {
         Connection con = DBManager.getConnection();
 
@@ -110,11 +136,16 @@ public class UserDB {
         return false;
     }
 
+    /**
+     * Retrieves a list of all users from the database.
+     *
+     * @return a {@link List} of {@link User} objects, where each object represents a user retrieved from the database
+     */
     public static List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
         Connection con = DBManager.getConnection();
 
-        String query = "SELECT * FROM user";  // SQL-fråga för att hämta alla användare
+        String query = "SELECT * FROM user";
         try (PreparedStatement pstmt = con.prepareStatement(query);
              ResultSet rs = pstmt.executeQuery()) {
 
@@ -136,6 +167,12 @@ public class UserDB {
         return users;
     }
 
+    /**
+     * Deletes a user from the database based on the provided username.
+     *
+     * @param userName the username of the user to be deleted from the database
+     * @return {@code true} if the user was successfully deleted, {@code false} otherwise
+     */
     public static boolean deleteUser(String userName) {
         Connection con = DBManager.getConnection();
 
@@ -161,6 +198,13 @@ public class UserDB {
         return false;
     }
 
+    /**
+     * Updates the user type of a specified user in the database.
+     *
+     * @param userName the username of the user whose type is to be updated
+     * @param userType the new user type to be set for the user
+     * @return {@code true} if the user type was successfully updated, {@code false} otherwise
+     */
     public static boolean updateUserType(String userName, User.UserType userType) {
         Connection con = DBManager.getConnection();
         String updateSQL = "UPDATE user SET userType = ? WHERE userName = ?";

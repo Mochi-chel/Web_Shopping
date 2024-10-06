@@ -8,7 +8,6 @@
 </head>
 <body>
 <h1>Logga in</h1>
-<h3>YOU ARE IN LOGIN.JSP</h3>
 <% String message = (String) request.getAttribute("message"); %>
 <% Boolean loginSuccess = (Boolean) request.getAttribute("loginSuccess"); %>
 

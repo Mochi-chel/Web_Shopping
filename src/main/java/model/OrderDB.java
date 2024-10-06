@@ -83,6 +83,7 @@ public class OrderDB {
     }
 
 
+    /*
     public static List<Order> getOrdersByUsername(String username) throws SQLException {
         List<Order> orders = new ArrayList<>();
 
@@ -107,6 +108,7 @@ public class OrderDB {
         }
         return orders;
     }
+    */
 
     private static List<Item> getOrderItems(int orderId) throws SQLException {
         List<Item> orderItems = new ArrayList<>();
@@ -169,51 +171,13 @@ public class OrderDB {
         return orders;
     }
 
-    public static List<Order> getAllOrdersAAAAA() throws SQLException {
-        List<Order> orders = new ArrayList<>();
-
-        try (Connection connection = DBManager.getConnection()) {
-            String selectOrdersSQL = "SELECT * FROM orders";
-            /*
-            Häma alla orders
-            Häma alla orderItems
-            Plocka ut order (låt os säga oID)
-            skapa user med: username (från order), userType (hämta från DB), cart (se nedan för hur cart sa fixas)
-                Kolla på informationen vi fic från orderItems.
-                SELECT OrderItems WHERE orderId WHERE (oID)
-                gå igenom allt som fås härifrån, det bör vara alla items kollade till en viss order
-                    få information om item genom att:
-                        SELECT item WHERE id = (id som fås från orderItems tabellen)
-                        all info utom quantity fås från item tabellen i DB.
-                        new Item(id, name, price, "quantity" (av det vi får), group)
-
-             */
-
-
-            try (PreparedStatement pstmt = connection.prepareStatement(selectOrdersSQL)) {
-                try (ResultSet rs = pstmt.executeQuery()) {
-                    while (rs.next()) {
-                        int orderId = rs.getInt("id");
-                        double totalPrice = rs.getDouble("totalPrice");
-                        String status = rs.getString("status");
-                        String username = rs.getString("username");
-
-                        User user = new User(username, User.UserType.customer); // Anta att alla är kunder
-
-                        // Hämta alla orderartiklar kopplade till den aktuella ordern
-                        List<Item> orderItems = getOrderItems(orderId);
-                        Cart cart = new Cart();
-
-                        //Lägger orderItems i UserCart
-
-                        Order order = new Order(orderId, totalPrice, status, user);
-                        orders.add(order);
-                    }
-                }
-            }
-        }
-        return orders;
-    }
+    /**
+     * Updates the status of a specified order in the database.
+     *
+     * @param orderId   the ID of the order whose status is to be updated
+     * @param newStatus the new status to be set for the order
+     * @return {@code true} if the order status was successfully updated, {@code false} otherwise
+     */
 
     public static boolean updateOrderStatus(int orderId, String newStatus) {
         boolean isUpdated = false;

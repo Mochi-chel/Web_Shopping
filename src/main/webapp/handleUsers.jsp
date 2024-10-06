@@ -10,14 +10,10 @@
 <body>
 <%
     User user = (User) request.getSession().getAttribute("user");
-    User.UserType userType = user.getUserType();
 %>
 <h4>Logged in as <%= user.getUserName() %>, <%= user.getUserType() %></h4>
 <h1>Manage Users</h1>
 
-<!-- Här kan du lägga till logik för att visa och hantera användare -->
-
-<!-- Exempel på en enkel lista över användare -->
 <table border="1">
     <thead>
     <tr>
@@ -27,9 +23,8 @@
     </tr>
     </thead>
     <tbody>
-    <!-- Här kan du iterera över en lista med användare och visa dem -->
     <%
-        List<User> users = (List<User>) request.getAttribute("users"); // hämta användare
+        List<User> users = (List<User>) request.getAttribute("users");
         for (User usr : users) {
     %>
     <tr>
@@ -42,13 +37,13 @@
                     <option value="staff" <%= usr.getUserType() == User.UserType.staff ? "selected" : "" %>>Staff</option>
                     <option value="admin" <%= usr.getUserType() == User.UserType.admin ? "selected" : "" %>>Admin</option>
                 </select>
-                <input type="hidden" name="userName" value="<%= usr.getUserName() %>"> <!-- Skicka användarnamnet -->
+                <input type="hidden" name="userName" value="<%= usr.getUserName() %>">
                 <input type="submit" value="Update">
             </form>
         </td>
         <td>
             <form action="deleteUser" method="post" style="display:inline;">
-                <input type="hidden" name="userName" value="<%= usr.getUserName() %>"> <!-- Skicka användarnamnet -->
+                <input type="hidden" name="userName" value="<%= usr.getUserName() %>">
                 <input type="submit" value="Delete">
             </form>
         </td>
@@ -66,7 +61,7 @@
 <% } %>
 
 <form action="goToShopSite" method="get">
-    <input type="submit" value="Go back to shop site"> <!-- Knapp för att lägga till i kundvagn -->
+    <input type="submit" value="Go back to shop site">
 </form>
 
 </body>

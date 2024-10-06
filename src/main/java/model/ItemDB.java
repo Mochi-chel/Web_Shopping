@@ -17,16 +17,15 @@ public class ItemDB{
      * @throws RuntimeException if there is an error during database access
      */
     public static List<Item> getAllItems() {
-        Connection con = null;  // Skapa en Connection
-        List<Item> items = new ArrayList<>();  // Lista för att lagra alla hämtade items
-        String query = "SELECT * FROM items";  // SQL-fråga
+        Connection con = null;
+        List<Item> items = new ArrayList<>();
+        String query = "SELECT * FROM items";
 
         try {
             con = DBManager.getConnection();
             try (PreparedStatement pstmt = con.prepareStatement(query);
                  ResultSet rs = pstmt.executeQuery()) {
 
-                // Iterera över resultatet och skapa Item-objekt för varje rad
                 while (rs.next()) {
                     int id = rs.getInt("id");
                     String name = rs.getString("name");
@@ -60,9 +59,7 @@ public class ItemDB{
         String query = "SELECT * FROM items WHERE id = ?";
 
         try (PreparedStatement pstmt = con.prepareStatement(query)) {
-            pstmt.setInt(1, id); // Ställ in id som parameter
-
-            //System.out.println("HelloKITTY");
+            pstmt.setInt(1, id);
 
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
@@ -131,9 +128,9 @@ public class ItemDB{
         try {
             con = DBManager.getConnection();
             try (PreparedStatement pstmt = con.prepareStatement(updateSQL)) {
-                pstmt.setInt(1, quantityJustering); // Lägga till (eller ta bort) lagret
-                pstmt.setInt(2, itemId);            // Ställ in itemId
-                pstmt.setInt(3, quantityJustering); // För att försäkra att stock + justering >= 0
+                pstmt.setInt(1, quantityJustering);
+                pstmt.setInt(2, itemId);
+                pstmt.setInt(3, quantityJustering);
 
                 int rowsUpdated = pstmt.executeUpdate(); // Kör uppdateringen
                 return rowsUpdated > 0; // Om minst en rad uppdaterades, returnera true

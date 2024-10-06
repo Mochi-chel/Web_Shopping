@@ -39,7 +39,7 @@ public class HandleUsersServlet extends HttpServlet {
 
         if (user == null) {
             response.sendRedirect("login.jsp");
-            return;  // Avsluta metoden här om ingen användare finns i sessionen.
+            return;
         }
 
         if(!user.getUserType().equals(User.UserType.admin)){
@@ -52,6 +52,4 @@ public class HandleUsersServlet extends HttpServlet {
         request.setAttribute("users", users);
         request.getRequestDispatcher("handleUsers.jsp").forward(request, response);
     }
-
-    // Om du planerar att hantera POST-förfrågningar också kan du implementera doPost här
 }

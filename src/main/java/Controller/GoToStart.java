@@ -7,8 +7,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-
-@WebServlet("/goToStart")  // Detta är URL-mappningen för servleten
+/**
+ * The GoToStart class is a servlet that handles navigation to the application's starting page.
+ * It redirects incoming GET requests to the "index.jsp" page.
+ */
+@WebServlet("/goToStart")
 public class GoToStart extends HttpServlet {
     /**
      * Handles GET requests by redirecting the user to the "index.jsp" page.
@@ -21,7 +24,7 @@ public class GoToStart extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Skicka en redirect till startsidan (index.jsp)
+
         response.sendRedirect("index.jsp");
     }
 }

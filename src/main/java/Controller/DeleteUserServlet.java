@@ -33,14 +33,14 @@ public class DeleteUserServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String userName = request.getParameter("userName"); // Hämta användarnamnet från förfrågan
+        String userName = request.getParameter("userName");
 
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 
         if (user == null) {
             response.sendRedirect("login.jsp");
-            return;  // Avsluta metoden här om ingen användare finns i sessionen.
+            return;
         }
 
         if(!user.getUserType().equals(User.UserType.admin)){
@@ -52,9 +52,8 @@ public class DeleteUserServlet extends HttpServlet {
 
 
         if (!userName.isEmpty()) {
-            boolean success = deleteUser(userName); // Kalla metoden för att ta bort användaren
+            boolean success = deleteUser(userName);
 
-            // Om användaren raderades framgångsrikt
             if (success) {
                 request.setAttribute("message", "User successfully deleted.");
             } else {

@@ -8,7 +8,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.RequestDispatcher;
 
 import java.io.IOException;
 import java.util.List;
@@ -88,14 +87,6 @@ public class addToCartServlet extends HttpServlet{
                 request.setAttribute("items", items);
                 request.getRequestDispatcher("shopSite.jsp").forward(request, response);
             }
-            //System.out.println("Here is addToCartServlet! And the size is: " + cart.getList().size());
-
-            /*for(int i = 0; i < cart.getList().size(); i++)
-            {
-                System.out.println(i + ".");
-                System.out.println(cart.getList().get(i).getName() + " " + cart.getList().get(i).getStock() + " " + cart.getList().get(i).getPrice());
-            }*/
-
 
         } else {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Item ID is required.");

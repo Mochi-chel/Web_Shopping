@@ -34,7 +34,7 @@ public class ViewOrderServlet extends HttpServlet{
 
         if (user == null) {
             response.sendRedirect("login.jsp");
-            return;  // Avsluta metoden här om ingen användare finns i sessionen.
+            return;
         }
 
         if(user.getUserType().equals(User.UserType.customer)){
@@ -51,9 +51,6 @@ public class ViewOrderServlet extends HttpServlet{
             request.setAttribute("errorMessage", "Error retrieving orders. Please try again later.");
         }
 
-
-
-        // Navigera till viewOrders.jsp
         request.getRequestDispatcher("viewOrders.jsp").forward(request, response);
     }
 }

@@ -31,7 +31,6 @@ public class AddNewItemServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Ladda JSP-sidan för att lägga till ett nytt item
         request.getRequestDispatcher("addItem.jsp").forward(request, response);
     }
 
@@ -58,7 +57,7 @@ public class AddNewItemServlet extends HttpServlet {
 
         if (user == null) {
             response.sendRedirect("login.jsp");
-            return;  // Avsluta metoden här om ingen användare finns i sessionen.
+            return;
         }
 
         if(!user.getUserType().equals(User.UserType.admin)){
@@ -76,7 +75,6 @@ public class AddNewItemServlet extends HttpServlet {
             double price = Double.parseDouble(priceStr);
             int stock = Integer.parseInt(stockStr);
 
-            // Kalla metoden i ItemDB för att skapa det nya itemet
             boolean success = addItem(name, price, stock, group);
 
             if (success) {

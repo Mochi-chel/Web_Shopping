@@ -7,12 +7,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Your Shopping Cart</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Lägg till eventuell CSS här -->
 </head>
 <body>
 <%
     User user = (User) request.getSession().getAttribute("user");
-    User.UserType userType = user.getUserType();
 %>
 <h4>Logged in as <%= user.getUserName() %>, <%= user.getUserType() %></h4>
 <h2>Your Shopping Cart</h2>
@@ -28,7 +26,7 @@
     String warning = (String) request.getAttribute("warning");
     if (warning != null) {
 %>
-<p style="color: red;"><%= warning %></p> <!-- Varning om otillräckligt lager -->
+<p style="color: red;"><%= warning %></p>
 <%
     }
 %>
@@ -92,7 +90,7 @@
     <input type="submit" value="Clear Cart">
 </form>
 <form action="goToShopSite" method="get">
-    <input type="submit" value="Go back to shop site"> <!-- Knapp för att lägga till i kundvagn -->
+    <input type="submit" value="Go back to shop site">
 </form>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package Controller;
 
+import jakarta.servlet.http.HttpSession;
 import model.*;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.annotation.WebServlet;
@@ -28,23 +29,25 @@ public class ItemlistServlet extends HttpServlet{
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+
+        if (user == null) {
+            response.sendRedirect("index.jsp");
+            return;
+        }
+
+
         try {
-            // Hämta alla items från databasen
-            //System.out.println("Innan hämtning av items");
             List<Item> items = ItemDB.getAllItems();
 
-            //System.out.println("Antal items hämtade: " + items.size());
-            // Sätta listan av items som ett attribut i förfrågan
             request.setAttribute("items", items);
 
-            // Skicka förfrågan vidare till JSP-sidan
-            //System.out.println("Attribute settled");
             RequestDispatcher dispatcher = request.getRequestDispatcher("shopSite.jsp");
             dispatcher.forward(request, response);
 
         } catch (Exception e) {
             e.printStackTrace();
-            // Hantera eventuella fel, t.ex. visa ett felmeddelande
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
                     "Fel vid hämtning av items.");
         }

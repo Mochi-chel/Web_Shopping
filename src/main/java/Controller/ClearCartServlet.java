@@ -10,7 +10,13 @@ import model.Item;
 import model.User;
 
 import java.io.IOException;
+import java.util.List;
 
+import static model.ItemDB.getAllItems;
+/**
+ * The ClearCartServlet class handles requests to clear the user's shopping cart.
+ * If the user is logged in, it clears all items from their cart and refreshes the item list on the shop page.
+ */
 @WebServlet("/clearCart")
 public class ClearCartServlet extends HttpServlet {
     /**
@@ -25,13 +31,20 @@ public class ClearCartServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
 
-        session.removeAttribute("cartItems");
-        session.removeAttribute("totalPrice");
+        if (user == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
 
-        request.setAttribute("message", "Your cart has been cleared.");
+        if (user.getCart() != null) {
+            user.getCart().clear();
+        }
 
-        // Redirect to the cart page
-        request.getRequestDispatcher("cart.jsp").forward(request, response);
+        session.setAttribute("user", user);
+        List<Item> items = getAllItems();
+        request.setAttribute("items", items);
+        request.getRequestDispatcher("shopSite.jsp").forward(request, response);
     }
 }

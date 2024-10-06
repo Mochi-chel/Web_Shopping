@@ -30,7 +30,6 @@ public class UpdateStockServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Hämta itemId och operation från förfrågan
         String itemIdStr = request.getParameter("itemId");
         String operation = request.getParameter("operation");
 
@@ -39,11 +38,11 @@ public class UpdateStockServlet extends HttpServlet {
 
         if (user == null) {
             response.sendRedirect("login.jsp");
-            return;  // Avsluta metoden här om ingen användare finns i sessionen.
+            return;
         }
 
         if (itemIdStr == null || operation == null) {
-            response.sendRedirect("shopSite.jsp"); // Omdirigera tillbaka om något saknas
+            response.sendRedirect("shopSite.jsp");
             return;
         }
 
@@ -64,10 +63,6 @@ public class UpdateStockServlet extends HttpServlet {
             updateSuccess = updateStock(itemId, -1);
             request.setAttribute("message", "Lyckades INTE ändra");
         }
-
-        // Kontrollera att itemId och operation inte är null
-
-            // Omdirigera tillbaka till produktlistan efter uppdateringen
         List<Item> items = getAllItems();
         request.setAttribute("items", items);
         request.getRequestDispatcher("shopSite.jsp").forward(request, response);

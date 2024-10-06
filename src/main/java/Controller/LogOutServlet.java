@@ -7,8 +7,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-
-@WebServlet("/logout")  // URL-mappning till logout-servlet
+/**
+ * The LogOutServlet class is a servlet that handles user logout functionality.
+ * It removes the user session and redirects to the login page.
+ */
+@WebServlet("/logout")
 public class LogOutServlet extends HttpServlet {
     /**
      * Handles GET requests to log the user out of the application.
@@ -23,15 +26,12 @@ public class LogOutServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Hämta den nuvarande sessionen, men skapa inte en ny om ingen finns
         HttpSession session = request.getSession(false);
 
         if (session != null) {
-            // Rensa ett specifikt attribut från sessionen (t.ex. "user")
             session.removeAttribute("user");
         }
 
-        // Omdirigera till login.jsp
         response.sendRedirect("login.jsp");
     }
 }

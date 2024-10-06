@@ -13,11 +13,17 @@
 <%
     User user = (User) request.getSession().getAttribute("user");
     User.UserType userType = user.getUserType();
+    if(user.getUserType() == null){
+        response.sendRedirect("index.jsp");
+        return;
+    }
 %>
 <h4>Logged in as <%= user.getUserName() %>, <%= user.getUserType() %></h4>
 <h1>Items List</h1>
 
 <%
+
+
     String warning = (String) request.getAttribute("warning");
     if (warning != null) {
 %>
@@ -38,11 +44,9 @@
     </thead>
     <tbody>
     <%
-        // Hämta listan med items från förfrågan
+
         List<Item> items = (List<Item>) request.getAttribute("items");
 
-
-        // Iterera över items och visa namn och pris
         for (Item item : items) {
     %>
     <tr>
@@ -52,8 +56,8 @@
         <td><%= item.getGroup() %></td>
         <td>
             <form action="addToCart" method="post">
-                <input type="hidden" name="itemId" value="<%= item.getId() %>"> <!-- Skickar item-id -->
-                <input type="submit" value="Add to Cart"> <!-- Knapp för att lägga till i kundvagn -->
+                <input type="hidden" name="itemId" value="<%= item.getId() %>">
+                <input type="submit" value="Add to Cart">
             </form>
 
             <% if(userType.equals(UserType.admin)){
@@ -62,13 +66,13 @@
 
             <form action="updateStock" method="post" style="display:inline;">
                 <input type="hidden" name="itemId" value="<%= item.getId() %>">
-                <input type="hidden" name="operation" value="add"> <!-- Indikerar att det är ett "plus" -->
+                <input type="hidden" name="operation" value="add">
                 <input type="submit" value="+">
             </form>
 
             <form action="updateStock" method="post" style="display:inline;">
                 <input type="hidden" name="itemId" value="<%= item.getId() %>">
-                <input type="hidden" name="operation" value="remove"> <!-- Indikerar att det är ett "minus" -->
+                <input type="hidden" name="operation" value="remove">
                 <input type="submit" value="-">
             </form>
 
@@ -89,7 +93,6 @@
     %>
 
     <%
-        // Visa knappar baserat på användartyp
         if (userType != null) {
             if (userType == UserType.staff || userType == UserType.admin) {
     %>
@@ -102,7 +105,6 @@
     %>
 
     <%
-        // Lägg till en knapp för att lägga till nytt item, endast för admin
         if (userType.equals(UserType.admin)) {
     %>
     <form action="addItem" method="get">

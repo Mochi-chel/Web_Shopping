@@ -10,7 +10,6 @@
     <meta charset="UTF-8">
     <title>Controller Orders</title>
     <style>
-        /* Enkel styling för tabellen */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -28,12 +27,10 @@
 <body>
 
 <%
-    // Hämta användaren från sessionen
     User user = (User) request.getSession().getAttribute("user");
     User.UserType userType = user != null ? user.getUserType() : null;
 
     if (userType == UserType.staff || userType == UserType.admin) {
-        // Hämta alla beställningar från request-attributet
         List<Order> orders = (List<Order>) request.getAttribute("orders");
 %>
 
@@ -55,7 +52,6 @@
     </thead>
     <tbody>
     <%
-        // Iterera över alla beställningar och skriv ut varje rad
         for (Order order : orders) {
     %>
     <tr>
@@ -75,7 +71,6 @@
                 </thead>
                 <tbody>
                 <%
-                    // Iterera över items i ordern och skriv ut varje item
                     for (Item item : order.getUser().getCart().getList()) {
                 %>
                 <tr>

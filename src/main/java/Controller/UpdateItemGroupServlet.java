@@ -31,7 +31,6 @@ public class UpdateItemGroupServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Hämta itemId och den nya gruppen från förfrågan
         String itemIdStr = request.getParameter("itemId");
         String newGroup = request.getParameter("newGroup");
 
@@ -40,7 +39,7 @@ public class UpdateItemGroupServlet extends HttpServlet {
 
         if (user == null) {
             response.sendRedirect("login.jsp");
-            return;  // Avsluta metoden här om ingen användare finns i sessionen.
+            return;
         }
 
         if(!user.getUserType().equals(User.UserType.admin)){
@@ -52,17 +51,14 @@ public class UpdateItemGroupServlet extends HttpServlet {
         if (itemIdStr != null && newGroup != null && !newGroup.trim().isEmpty()) {
             int itemId = Integer.parseInt(itemIdStr);
 
-            // Uppdatera gruppen i databasen
             boolean success = ItemDB.updateItemGroup(itemId, newGroup);
 
 
             if (success) {
             } else {
-                // Hantera fel om uppdateringen misslyckades
                 request.setAttribute("message", "Failed to update item group.");
             }
         } else {
-            // Hantera fel om itemId eller newGroup saknas eller om newGroup är tomt
             request.setAttribute("message", "Invalid input.");
 
         }

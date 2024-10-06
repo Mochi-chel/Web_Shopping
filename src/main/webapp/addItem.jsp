@@ -37,7 +37,7 @@
 </form>
 
 <form action="goToShopSite" method="get">
-    <input type="submit" value="Go back to shop site"> <!-- Knapp för att lägga till i kundvagn -->
+    <input type="submit" value="Go back to shop site">
 </form>
 
 </body>

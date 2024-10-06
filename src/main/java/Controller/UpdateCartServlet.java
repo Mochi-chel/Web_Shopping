@@ -37,7 +37,7 @@ public class UpdateCartServlet extends HttpServlet{
 
         if (user == null) {
             response.sendRedirect("login.jsp");
-            return;  // Avsluta metoden här om ingen användare finns i sessionen.
+            return;
         }
         Cart cart = user.getCart();
 
@@ -45,8 +45,6 @@ public class UpdateCartServlet extends HttpServlet{
         String operation = request.getParameter("operation");
 
         if (cart != null && itemId != null) {
-            //System.out.println(itemId);
-            //System.out.println("Im in the if-statement of cart != null && itemID != null");
 
             int index = 0;
             while (index < cart.getList().size()) {
@@ -70,7 +68,7 @@ public class UpdateCartServlet extends HttpServlet{
                     {
                         request.setAttribute("warning", "Cannot add more of " + itemInLayer.getName() + ". Not enough stock.");
 
-                        RequestDispatcher dispatcher = request.getRequestDispatcher("cart.jsp"); // Justera till den korrekta sökvägen
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("cart.jsp");
                         dispatcher.forward(request, response);
                         return;
                     }
@@ -85,11 +83,10 @@ public class UpdateCartServlet extends HttpServlet{
                     }
                     else
                     {
-                        cart.removeItem(cart.getList().get(index)); // Ta bort varan om mängden blir 0
+                        cart.removeItem(cart.getList().get(index));
                     }
                 }
 
-                //Uppdatera session
                 session.setAttribute("user", user);
                 request.setAttribute("message", "Cart updated successfully.");
             }

@@ -39,7 +39,7 @@ public class UpdateOrderStatusServlet extends HttpServlet{
 
         if (user == null) {
             response.sendRedirect("login.jsp");
-            return;  // Avsluta metoden här om ingen användare finns i sessionen.
+            return;
         }
 
         if(user.getUserType().equals(User.UserType.customer)){
@@ -52,7 +52,7 @@ public class UpdateOrderStatusServlet extends HttpServlet{
         try {
             boolean updated = OrderDB.updateOrderStatus(orderId, newStatus);
             if (updated) {
-                response.sendRedirect("viewOrders");  // Om uppdaterad, omdirigera till viewOrders
+                response.sendRedirect("viewOrders");
             } else {
                 response.getWriter().write("Failed to update order status.");
             }

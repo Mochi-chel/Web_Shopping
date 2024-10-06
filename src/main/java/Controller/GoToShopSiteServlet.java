@@ -11,8 +11,11 @@ import java.io.IOException;
 import java.util.List;
 
 import static model.ItemDB.getAllItems;
-
-@WebServlet("/goToShopSite")  // Mappning till denna servlet
+/**
+ * The GoToShopSiteServlet class handles requests to display the main shopping page.
+ * Retrieves all available items from the database and forwards them to the shop view.
+ */
+@WebServlet("/goToShopSite")
 public class GoToShopSiteServlet extends HttpServlet {
     /**
      * Handles GET requests to load the shopping site.
