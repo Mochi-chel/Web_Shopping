@@ -12,9 +12,21 @@ import model.User;
 
 import java.io.IOException;
 import java.util.List;
-
+/**
+ * The cartServlet class handles requests to view the shopping cart for a logged-in user.
+ * It retrieves the user's cart items and total price and forwards this data to the cart.jsp view.
+ */
 @WebServlet("/cart")
 public class cartServlet extends HttpServlet{
+    /**
+     * Handles GET requests to display the user's cart.
+     * Checks if a user is logged in, retrieves the user's cart, and forwards cart details to the view.
+     *
+     * @param request  the HttpServletRequest object
+     * @param response the HttpServletResponse object
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException      if an input or output error is detected
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

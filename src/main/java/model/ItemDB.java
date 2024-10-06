@@ -5,38 +5,24 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Vector;
-
-public class ItemDB/* extends Item*/{
-
-    //private static String DB_URL = "jdbc:sqlite:C:/Theodors_grejor/Distribuerade system/Web_Shopping/mydatabase.db";
-
-    //Metod från Reine
-    /*public static Collection searchItems(String group) throws SQLException {
-        Vector v = new Vector();
-        Connection con = DBManager.getConnection();
-        Statement st = con.createStatement();
-        ResultSet rs = st.executeQuery("select item_id, name from Item where item_group = "+group);
-        while (rs.next()) {
-            int i = rs.getInt("item_id");
-            String name = rs.getString("name");
-            v.addElement(new ItemDB(i, name));
-        }
-        return v;
-    }*/
-
-    /*private ItemDB(int id, String name) {
-        super(id, name);
-    }*/
-
-    /* Gets all items from data
-     * */
+/**
+ * The ItemDB class provides methods for interacting with the database related to Item objects.
+ * It includes functionalities to retrieve, add, and update items in the database.
+ */
+public class ItemDB{
+    /**
+     * Retrieves all items from the database.
+     *
+     * @return a List of Item objects representing all items in the database
+     * @throws RuntimeException if there is an error during database access
+     */
     public static List<Item> getAllItems() {
         Connection con = null;  // Skapa en Connection
         List<Item> items = new ArrayList<>();  // Lista för att lagra alla hämtade items
         String query = "SELECT * FROM items";  // SQL-fråga
 
         try {
-            con = DBManager.getConnection();  // Hämta anslutning
+            con = DBManager.getConnection();
             try (PreparedStatement pstmt = con.prepareStatement(query);
                  ResultSet rs = pstmt.executeQuery()) {
 
@@ -47,22 +33,28 @@ public class ItemDB/* extends Item*/{
                     double price = rs.getDouble("price");
                     int stock = rs.getInt("stock");
                     String itemGroup = rs.getString("itemGroup");
-                    items.add(new Item(name, id, price, stock, itemGroup));  // Lägg till varje objekt i listan
+                    items.add(new Item(name, id, price, stock, itemGroup));
                 }
             }
         } catch (SQLException e) {
             System.err.println("Fel vid hämtning av alla items: " + e.getMessage());
             throw new RuntimeException("Fel vid hämtning av alla items", e);
         } finally {
-            DBManager.closeConnection(con);  // Stäng anslutningen efter användning
+            DBManager.closeConnection(con);
         }
 
         return items;
     }
 
-
+    /**
+     * Retrieves a specific item from the database based on its ID.
+     *
+     * @param id the ID of the item to retrieve
+     * @return the Item object with the specified ID, or null if not found
+     * @throws RuntimeException if there is an error during database access
+     */
     public static Item getItemById(int id) {
-        Connection con = null; // Få en anslutning till databasen
+        Connection con = null;
         con = DBManager.getConnection();
 
         String query = "SELECT * FROM items WHERE id = ?";
@@ -74,14 +66,13 @@ public class ItemDB/* extends Item*/{
 
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
-                    // Om vi får ett resultat, skapa ett Item-objekt
+
                     String name = rs.getString("name");
                     double price = rs.getDouble("price");
                     int stock = rs.getInt("stock");
                     String itemGroup = rs.getString("itemGroup");
-                    return new Item(name, id, price, stock, itemGroup); // Returnera det skapade Item-objektet
+                    return new Item(name, id, price, stock, itemGroup);
                 } else {
-                    // Om inget resultat hittas
                     System.out.println("Item med ID " + id + " hittades inte.");
                     return null;
                 }
@@ -90,10 +81,18 @@ public class ItemDB/* extends Item*/{
             System.out.println(e.getMessage());
             throw new RuntimeException(e.getMessage());
         }finally {
-            DBManager.closeConnection(con);  // Stäng anslutningen efter användning
+            DBManager.closeConnection(con);
         }
     }
-
+    /**
+     * Adds a new item to the database.
+     *
+     * @param name   the name of the item
+     * @param price  the price of the item
+     * @param stock  the stock quantity of the item
+     * @param group  the group/category of the item
+     * @return true if the item was added successfully, false otherwise
+     */
     public static boolean addItem(String name, double price, int stock, String group) {
         Connection con = DBManager.getConnection();
         String insertSQL = "INSERT INTO items (name, price, stock, itemGroup) VALUES (?, ?, ?, ?)";
@@ -107,25 +106,30 @@ public class ItemDB/* extends Item*/{
             int rowsInserted = pstmt.executeUpdate();
 
             if (rowsInserted > 0) {
-                //System.out.println("Item successfully added!");
                 return true;
             }
         } catch (SQLException e) {
             System.out.println("Could not add user to DB!");
         }
         finally {
-            DBManager.closeConnection(con);  // Stäng anslutningen efter användning
+            DBManager.closeConnection(con);
         }
         return false;
     }
 
-
+    /**
+     * Updates the stock quantity of a specific item in the database.
+     *
+     * @param itemId          the ID of the item to update
+     * @param quantityJustering the adjustment to be made to the stock (can be negative to remove stock)
+     * @return true if the stock was updated successfully, false otherwise
+     */
     public static boolean updateStock(int itemId, int quantityJustering) {
         Connection con = null;
-        String updateSQL = "UPDATE items SET stock = stock + ? WHERE id = ? AND stock + ? >= 0"; // Se till att stock aldrig blir negativt
+        String updateSQL = "UPDATE items SET stock = stock + ? WHERE id = ? AND stock + ? >= 0";
 
         try {
-            con = DBManager.getConnection(); // Hämta anslutning till databasen
+            con = DBManager.getConnection();
             try (PreparedStatement pstmt = con.prepareStatement(updateSQL)) {
                 pstmt.setInt(1, quantityJustering); // Lägga till (eller ta bort) lagret
                 pstmt.setInt(2, itemId);            // Ställ in itemId
@@ -138,28 +142,34 @@ public class ItemDB/* extends Item*/{
             System.err.println("Fel vid uppdatering av lager: " + e.getMessage());
             return false;
         } finally {
-            DBManager.closeConnection(con); // Stäng anslutningen efter användning
+            DBManager.closeConnection(con);
         }
     }
-
+    /**
+     * Updates the group/category of a specific item in the database.
+     *
+     * @param itemId  the ID of the item to update
+     * @param newGroup the new group/category to assign to the item
+     * @return true if the item group was updated successfully, false otherwise
+     */
     public static boolean updateItemGroup(int itemId, String newGroup) {
         Connection con = null;
         String updateSQL = "UPDATE items SET itemGroup = ? WHERE id = ?";
 
         try {
-            con = DBManager.getConnection(); // Hämta anslutning till databasen
+            con = DBManager.getConnection();
             try (PreparedStatement pstmt = con.prepareStatement(updateSQL)) {
-                pstmt.setString(1, newGroup); // Sätt den nya gruppen från formuläret
-                pstmt.setInt(2, itemId);      // Sätt itemId
+                pstmt.setString(1, newGroup);
+                pstmt.setInt(2, itemId);
 
-                int rowsUpdated = pstmt.executeUpdate(); // Kör uppdateringen
-                return rowsUpdated > 0; // Om minst en rad uppdaterades, returnera true
+                int rowsUpdated = pstmt.executeUpdate();
+                return rowsUpdated > 0;
             }
         } catch (SQLException e) {
             System.err.println("Fel vid uppdatering av item group: " + e.getMessage());
             return false;
         } finally {
-            DBManager.closeConnection(con); // Stäng anslutningen efter användning
+            DBManager.closeConnection(con);
         }
     }
 }

@@ -113,14 +113,14 @@
 %>
 <p>Access Denied: You do not have permission to view this page.</p>
 <%
-    response.sendRedirect("login.jsp"); // Omdirigera användare som inte har behörighet
+    response.sendRedirect("login.jsp");
 %>
 <%
     }
 %>
 
 <form action="goToShopSite" method="get">
-    <input type="submit" value="Go back to shop site"> <!-- Knapp för att lägga till i kundvagn -->
+    <input type="submit" value="Go back to shop site">
 </form>
 
 </body>

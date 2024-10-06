@@ -12,9 +12,23 @@ import jakarta.servlet.http.HttpSession;
 import model.*;
 
 import static model.ItemDB.getItemById;
-
+/**
+ * The UpdateCartServlet class is responsible for updating items in a user's shopping cart.
+ * It allows users to add or remove items from their cart based on user input.
+ */
 @WebServlet("/updateCart")
 public class UpdateCartServlet extends HttpServlet{
+    /**
+     * Handles POST requests to update the user's shopping cart.
+     * It retrieves the user's cart and performs add or remove operations
+     * based on the user's input and the current stock of the items.
+     *
+     * @param request  the HttpServletRequest object containing the client's request
+     * @param response the HttpServletResponse object for returning the servlet's response
+     * @throws ServletException if an error occurs during the servlet operation
+     * @throws IOException      if an input or output error is detected during the operation
+     */
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 

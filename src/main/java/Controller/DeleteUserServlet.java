@@ -15,10 +15,22 @@ import java.util.List;
 import static model.ItemDB.getAllItems;
 import static model.UserDB.deleteUser;
 import static model.UserDB.getAllUsers;
-
+/**
+ * The DeleteUserServlet class handles requests to delete a specified user from the system.
+ * Only accessible by users with admin privileges.
+ */
 @WebServlet("/deleteUser")
 public class DeleteUserServlet extends HttpServlet {
-
+    /**
+     * Handles POST requests to delete a user by their username.
+     * Ensures that the current user has admin privileges before attempting deletion.
+     * If the user is successfully deleted, a success message is displayed; otherwise, an error message is shown.
+     *
+     * @param request  the HttpServletRequest object containing client request data
+     * @param response the HttpServletResponse object for sending the response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException      if an input or output error is detected
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userName = request.getParameter("userName"); // Hämta användarnamnet från förfrågan

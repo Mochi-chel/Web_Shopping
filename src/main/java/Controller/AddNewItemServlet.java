@@ -14,17 +14,38 @@ import java.util.List;
 
 import static model.ItemDB.addItem;
 import static model.ItemDB.getAllItems;
-
+/**
+ * The AddNewItemServlet class handles requests for adding a new item to the database.
+ * Only users with the admin role are allowed to add new items.
+ */
 @WebServlet("/addItem")
 public class AddNewItemServlet extends HttpServlet {
 
+    /**
+     * Handles GET requests to display the addItem.jsp page.
+     *
+     * @param request  the HttpServletRequest object
+     * @param response the HttpServletResponse object
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an input or output error is detected
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Ladda JSP-sidan för att lägga till ett nytt item
         request.getRequestDispatcher("addItem.jsp").forward(request, response);
     }
 
-
+    /**
+     * Handles POST requests to add a new item to the database.
+     * Validates that the user is an admin, that all fields are filled, and that
+     * price and stock values are correctly formatted. Redirects back to addItem.jsp
+     * in case of any error, or to shopSite.jsp upon successful item addition.
+     *
+     * @param request  the HttpServletRequest object
+     * @param response the HttpServletResponse object
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an input or output error is detected
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("name");

@@ -5,12 +5,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DBManager {
-    // Databasens URL (för SQLite)
-    //private static final String DB_URL = "jdbc:sqlite:mydatabase.db";
     private static final String DB_URL = "jdbc:sqlite:C:/Theodors_grejor/Distribuerade system/Web_Shopping/mydatabase.db";
-    // Metod för att skapa och returnera en anslutning
     public static Connection getConnection() {
-        //System.out.println("Hi!");
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(DB_URL);
@@ -23,8 +19,6 @@ public class DBManager {
         }
         return conn;
     }
-
-    // Metod för att stänga anslutningen
     public static void closeConnection(Connection conn) {
         try {
             if (conn != null && !conn.isClosed()) {

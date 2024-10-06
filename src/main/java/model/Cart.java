@@ -3,7 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Cart {
 
 
@@ -56,50 +55,5 @@ public class Cart {
     public void clear(){
         this.cartItems.clear();
     }
-
-
-    /*private Hashtable<Item, Integer> table;
-
-    public Cart(){
-        table = new Hashtable<>();
-    }
-
-    public List<Item> getItems() {
-        return items;
-    }
-
-    public void addItem(Item item){
-        if(table.containsKey(item)){
-            table.put(item, table.get(item)+1);
-        }
-        else{
-            table.put(item, 1);
-        }
-    }
-
-    public void deleteItem(Item item)
-    {
-        table.remove(item);
-    }
-
-    public double getTotalPrice() {
-        double total = 0;
-
-        for (Map.Entry<Item, Integer> entry : table.entrySet()) {
-            int quantity = entry.getValue();  // Hämta antalet för varan
-            total += entry.getKey().getPrice() * quantity;  // Pris * antal
-        }
-
-        return total;
-    }*/
-
-    /*public boolean checkIfItemExists(Item item) {
-        for (CartItem cartItem : cartItems) {
-            if (cartItem.getItem().equals(item)) {
-                return true;
-            }
-        }
-        return false;
-    }*/
 
 }

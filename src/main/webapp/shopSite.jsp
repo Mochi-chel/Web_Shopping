@@ -8,7 +8,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Items List</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Lägg till eventuell CSS här -->
 </head>
 <body>
 <%

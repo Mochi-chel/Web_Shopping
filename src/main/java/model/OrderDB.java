@@ -5,19 +5,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * The OrderDB class provides methods for managing orders in the database.
+ * It includes functionalities to add new orders, retrieve existing orders,
+ * update order statuses, and handle related order items.
+ */
 public class OrderDB {
 
+    /**
+     * Adds a new order to the database.
+     *
+     * @param order the Order object to be added
+     * @return true if the order was added successfully, false otherwise
+     */
     public static boolean addOrder(Order order) {
         boolean isAdded = false;
 
-
-        //System.out.println("Im in addOrder method!");
-        //System.out.println(order.toString());
         try (Connection con = DBManager.getConnection()) {
-            con.setAutoCommit(false); // Ställ in auto-commit till false
+            con.setAutoCommit(false);
 
-            // SQL-fråga för att lägga till en order
             String insertSQL = "INSERT INTO orders (username, totalPrice, status) VALUES (?, ?, ?)";
             try (PreparedStatement pstmt = con.prepareStatement(insertSQL, PreparedStatement.RETURN_GENERATED_KEYS)) {
                 pstmt.setString(1, order.getUser().getUserName());
@@ -29,8 +35,7 @@ public class OrderDB {
                     try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
                         if (generatedKeys.next()) {
                             int orderId = generatedKeys.getInt(1);
-                            // Anropa addOrderItems med den befintliga anslutningen
-                            //TODO: Kontroll så att lager inte blir negativ! NEED TO CHECK THE DB STOCK --> ANOTHER METHOD IS REQUIRED
+
                             addOrderItems(con, orderId, order.getUser().getCart().getList());
                             updateStock(con, order.getUser().getCart().getList());
                             isAdded = true;
@@ -38,12 +43,12 @@ public class OrderDB {
                     }
                 }
             } catch (SQLException e) {
-                con.rollback(); // Återställ om något går fel
+                con.rollback();
                 System.out.println("Could not add order to DB: " + e.getMessage());
             }
 
             if (isAdded) {
-                con.commit(); // Bekräfta transaktionen om allt gick bra
+                con.commit();
             }
         } catch (SQLException e) {
             System.out.println("Could not connect to DB: " + e.getMessage());
@@ -69,8 +74,8 @@ public class OrderDB {
         String updateStockSQL = "UPDATE items SET stock = stock - ? WHERE id = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(updateStockSQL)) {
             for (Item item : cartItems) {
-                pstmt.setInt(1, item.getStock()); // Antal som ska dras bort
-                pstmt.setInt(2, item.getId()); // Item ID
+                pstmt.setInt(1, item.getStock());
+                pstmt.setInt(2, item.getId());
                 pstmt.addBatch();
             }
             pstmt.executeBatch();
@@ -118,7 +123,7 @@ public class OrderDB {
                         int quantity = rs.getInt("quantity");
                         double price = rs.getDouble("price");
 
-                        Item item = new Item(itemName, itemId, price, quantity, ""); // Anta att vi har en tom sträng för grupp
+                        Item item = new Item(itemName, itemId, price, quantity, "");
 
                         orderItems.add(item);
                     }
@@ -127,7 +132,12 @@ public class OrderDB {
         }
         return orderItems;
     }
-
+    /**
+     * Retrieves all orders from the database.
+     *
+     * @return a List of Order objects representing all orders in the database
+     * @throws SQLException if a database access error occurs
+     */
     public static List<Order> getAllOrders() throws SQLException {
         List<Order> orders = new ArrayList<>();
 
@@ -143,15 +153,13 @@ public class OrderDB {
 
                         User user = new User(username, User.UserType.customer);
 
-                        // Skapa en Cart för användaren och fyll med items från ordern
                         Cart cart = new Cart();
                         List<Item> orderItems = getOrderItems(orderId);
                         for (Item item : orderItems) {
                             cart.addItem(item);
                         }
-                        user.setCart(cart); // Lägg till Cart i User
+                        user.setCart(cart);
 
-                        // Skapa order och sätt användaren
                         Order order = new Order(orderId, totalPrice, status, user);
                         orders.add(order);
                     }
@@ -219,7 +227,7 @@ public class OrderDB {
 
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows > 0) {
-                isUpdated = true; // Om minst en rad uppdaterades
+                isUpdated = true;
             }
         } catch (SQLException e) {
             System.out.println("Could not update order status: " + e.getMessage());

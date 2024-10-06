@@ -12,8 +12,8 @@ public class UserDB {
     public static boolean checkIfUsernameAlreadyExists(String userName){
         Connection con = DBManager.getConnection();
 
-        String query = "SELECT * FROM user WHERE userName = ?";  // SQL-fråga
-        try (PreparedStatement pstmt = con.prepareStatement(query)) {  // Förbered SQL-frågan
+        String query = "SELECT * FROM user WHERE userName = ?";
+        try (PreparedStatement pstmt = con.prepareStatement(query)) {
 
             pstmt.setString(1, userName);  // Sätt in användarnamnet i SQL-frågan
 
@@ -25,9 +25,9 @@ public class UserDB {
         } catch (SQLException e) {
             System.out.println(e.getMessage());  // Hantera eventuella SQL-fel
         }finally {
-            DBManager.closeConnection(con);  // Stäng anslutningen efter användning
+            DBManager.closeConnection(con);
         }
-        return false;  // Användaren finns inte
+        return false;
     }
 
 
@@ -55,7 +55,7 @@ public class UserDB {
         } catch (SQLException e){
             throw new RuntimeException("Could not execute query: SELECT password FROM user WHERE username = ?");
         }finally {
-            DBManager.closeConnection(con);  // Stäng anslutningen efter användning
+            DBManager.closeConnection(con);
         }
     }
 
@@ -79,9 +79,8 @@ public class UserDB {
         } catch (SQLException e){
             throw new RuntimeException("Could not execute query: SELECT userType FROM user WHERE username = ?");
         }finally {
-            DBManager.closeConnection(con);  // Stäng anslutningen efter användning
+            DBManager.closeConnection(con);
         }
-        //return new User("GoGa", User.UserType.admin);
     }
 
 
@@ -105,7 +104,7 @@ public class UserDB {
         } catch (SQLException e) {
             System.out.println("Could not add user to DB!");
         }finally {
-            DBManager.closeConnection(con);  // Stäng anslutningen efter användning
+            DBManager.closeConnection(con);
         }
 
         return false;
@@ -117,49 +116,49 @@ public class UserDB {
 
         String query = "SELECT * FROM user";  // SQL-fråga för att hämta alla användare
         try (PreparedStatement pstmt = con.prepareStatement(query);
-             ResultSet rs = pstmt.executeQuery()) {  // Kör frågan och hämta resultatet
+             ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
                 String userName = rs.getString("userName");
-                String password = rs.getString("password");  // Om du behöver lösenordet, om inte ta bort denna rad
+                String password = rs.getString("password");
                 String userTypeStr = rs.getString("userType");
                 User.UserType userType = User.UserType.valueOf(userTypeStr);
 
-                User user = new User(userName, userType); // Anta att User har en konstruktor som tar userName och userType
-                users.add(user);  // Lägg till användaren i listan
+                User user = new User(userName, userType);
+                users.add(user);
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());  // Hantera eventuella SQL-fel
+            System.out.println(e.getMessage());
         } finally {
-            DBManager.closeConnection(con);  // Stäng anslutningen efter användning
+            DBManager.closeConnection(con);
         }
 
-        return users;  // Returnera listan med användare
+        return users;
     }
 
     public static boolean deleteUser(String userName) {
         Connection con = DBManager.getConnection();
 
-        String query = "DELETE FROM user WHERE userName = ?"; // SQL-fråga för att ta bort användaren
+        String query = "DELETE FROM user WHERE userName = ?";
 
         try (PreparedStatement pstmt = con.prepareStatement(query)) {
-            pstmt.setString(1, userName); // Sätt in användarnamnet i SQL-frågan
+            pstmt.setString(1, userName);
 
-            int rowsAffected = pstmt.executeUpdate(); // Kör uppdateringen
+            int rowsAffected = pstmt.executeUpdate();
             if(rowsAffected > 0){
                 System.out.println("I can delete person");
             }
 
-            return rowsAffected > 0; // Returera true om en rad raderades
+            return rowsAffected > 0;
         } catch (SQLException e) {
-            System.out.println("Error while deleting user: " + e.getMessage()); // Hantera fel
+            System.out.println("Error while deleting user: " + e.getMessage());
         } finally {
-            DBManager.closeConnection(con); // Stäng anslutningen
+            DBManager.closeConnection(con);
         }
 
         System.out.println("Kunde inte radera person");
 
-        return false; // Returera false om något gick fel
+        return false;
     }
 
     public static boolean updateUserType(String userName, User.UserType userType) {
@@ -171,12 +170,12 @@ public class UserDB {
             pstmt.setString(2, userName);
 
             int rowsUpdated = pstmt.executeUpdate();
-            return rowsUpdated > 0; // Returnera true om minst en rad uppdaterades
+            return rowsUpdated > 0;
         } catch (SQLException e) {
             System.out.println("Could not update user type: " + e.getMessage());
             return false;
         } finally {
-            DBManager.closeConnection(con);  // Stäng anslutningen efter användning
+            DBManager.closeConnection(con);
         }
     }
 }

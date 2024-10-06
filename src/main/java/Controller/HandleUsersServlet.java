@@ -14,10 +14,23 @@ import java.util.List;
 
 import static model.ItemDB.getAllItems;
 import static model.UserDB.getAllUsers;
-
+/**
+ * The HandleUsersServlet class is a servlet responsible for handling user management actions
+ * within the application. It retrieves the list of all users for admin users or redirects
+ * non-admin users to the shopping page.
+ */
 @WebServlet("/handleUsers")
 public class HandleUsersServlet extends HttpServlet {
-
+    /**
+     * Handles GET requests by verifying if the user is logged in and has admin privileges.
+     * If the user is an admin, the method retrieves all users and forwards the request to
+     * the "handleUsers.jsp" page. If the user is not an admin, it redirects to "shopSite.jsp".
+     *
+     * @param request  the HttpServletRequest object containing the client's request
+     * @param response the HttpServletResponse object for returning the servlet's response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException      if an input or output error is detected
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

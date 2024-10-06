@@ -15,9 +15,22 @@ import java.util.List;
 
 import static model.ItemDB.getAllItems;
 import static model.UserDB.getAllUsers;
-
+/**
+ * The UpdateUserTypeServlet class handles requests to update the user type of a specified user.
+ * It ensures that only administrators can perform this action.
+ */
 @WebServlet("/updateUserType")
 public class UpdateUserTypeServlet extends HttpServlet {
+    /**
+     * Handles POST requests to update the user type of a specified user.
+     * Validates the user session and checks permissions before processing the request.
+     *
+     * @param request  the HttpServletRequest object containing the client's request
+     * @param response the HttpServletResponse object for returning the servlet's response
+     * @throws ServletException if an error occurs during the servlet operation
+     * @throws IOException      if an input or output error is detected during the operation
+     */
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Hämta användarnamnet och den nya användartypen från förfrågan
         String userName = request.getParameter("userName");

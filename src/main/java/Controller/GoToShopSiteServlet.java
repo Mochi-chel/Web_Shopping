@@ -14,7 +14,15 @@ import static model.ItemDB.getAllItems;
 
 @WebServlet("/goToShopSite")  // Mappning till denna servlet
 public class GoToShopSiteServlet extends HttpServlet {
-
+    /**
+     * Handles GET requests to load the shopping site.
+     * Retrieves a list of available items from the database and forwards them to "shopSite.jsp" for display.
+     *
+     * @param request  the HttpServletRequest object containing the client request data
+     * @param response the HttpServletResponse object for sending the response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException      if an input or output error is detected
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

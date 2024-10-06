@@ -14,10 +14,21 @@ import model.ItemDB;
 import model.User;
 
 import static model.ItemDB.getAllItems;
-
+/**
+ * The UpdateItemGroupServlet class is responsible for updating the group of a specified item.
+ * It ensures that only users with admin privileges can perform this operation.
+ */
 @WebServlet("/updateItemGroup")
 public class UpdateItemGroupServlet extends HttpServlet {
-
+    /**
+     * Handles POST requests to update the item group for a specific item.
+     * It validates user permissions and the input parameters before attempting to update the item group.
+     *
+     * @param request  the HttpServletRequest object containing the client's request
+     * @param response the HttpServletResponse object for returning the servlet's response
+     * @throws ServletException if an error occurs during the servlet operation
+     * @throws IOException      if an input or output error is detected during the operation
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Hämta itemId och den nya gruppen från förfrågan

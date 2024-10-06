@@ -69,20 +69,3 @@ public class Item {
         return "Id: " + id + ", Name: " + name + ", price: " + price + ", stock: " + stock + ", group: " + group;
     }
 }
-/*public class Item {
-private int id;
-private String name;
-private int price;
-static public Collection searchItems(String
-group)
-{
-return ItemDB.searchItems(group);
-}
-protected Item(int id , String name) {
-this.id = id;
-this.name = name;
-}
-public String getName() {
-return name;
-}
-}*/
