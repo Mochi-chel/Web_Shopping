@@ -1,0 +1,702 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>C:/Theodors_grejor/Distribuerade system/Web_Shopping/src/main/java</OriginalElement>
+  <nodes>
+    <node x="2810.009397163121" y="76.0">model.Cart</node>
+    <node x="1158.0" y="602.0">Controller.DeleteUserServlet</node>
+    <node x="-126.0" y="675.0">CreateDbTable</node>
+    <node x="3285.7179964539014" y="602.0">Controller.UpdateCartServlet</node>
+    <node x="936.0" y="602.0">Controller.HandleUsersServlet</node>
+    <node x="440.3429964539014" y="392.0">model.UserDB</node>
+    <node x="2499.0" y="602.0">Controller.ClearCartServlet</node>
+    <node x="2927.634397163121" y="392.0">model.OrderDB</node>
+    <node x="2155.872517730497" y="76.0">model.User.UserType</node>
+    <node x="2565.1547872340425" y="-14.0">model.Item</node>
+    <node x="2296.0" y="602.0">Controller.ViewOrderServlet</node>
+    <node x="2199.333333333333" y="168.0">model.User</node>
+    <node x="84.0" y="675.0">Controller.LogOutServlet</node>
+    <node x="2737.134397163121" y="270.0">Controller.cartServlet</node>
+    <node x="-126.0" y="602.0">Controller.LoginServlet</node>
+    <node x="3479.5" y="602.0">Controller.SendOrderServlet</node>
+    <node x="288.0" y="675.0">Controller.GoToStart</node>
+    <node x="1683.5929964539014" y="270.0">model.DBManager</node>
+    <node x="1587.0" y="602.0">Controller.UpdateItemGroupServlet</node>
+    <node x="3080.7179964539014" y="602.0">Controller.addToCartServlet</node>
+    <node x="40.0" y="602.0">Controller.GoToShopSiteServlet</node>
+    <node x="1846.0" y="602.0">Controller.ItemlistServlet</node>
+    <node x="460.0" y="602.0">Controller.UpdateUserTypeServlet</node>
+    <node x="1366.0" y="602.0">Controller.AddNewItemServlet</node>
+    <node x="1740.8429964539014" y="392.0">model.ItemDB</node>
+    <node x="274.0" y="602.0">Controller.RegisterServlet</node>
+    <node x="2604.009397163121" y="270.0">model.Order</node>
+    <node x="2831.384397163121" y="602.0">testThingy</node>
+    <node x="2025.0" y="602.0">Controller.UpdateOrderStatusServlet</node>
+    <node x="713.0" y="602.0">Controller.UpdateStockServlet</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Controller.SendOrderServlet" target="model.OrderDB" relationship="DEPENDENCY">
+      <point x="-46.25" y="-14.0" />
+      <point x="3525.75" y="581.0" />
+      <point x="3561.5929964539014" y="581.0" />
+      <point x="3561.5929964539014" y="441.0" />
+      <point x="2985.634397163121" y="441.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Controller.HandleUsersServlet" target="model.ItemDB" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="1037.0" y="551.0" />
+      <point x="1793.8429964539014" y="551.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Controller.HandleUsersServlet" target="model.User" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="1037.0" y="238.0" />
+      <point x="2242.333333333333" y="238.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Controller.UpdateUserTypeServlet" target="model.User.UserType" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="576.5" y="461.0" />
+      <point x="559.8429964539014" y="461.0" />
+      <point x="559.8429964539014" y="146.0" />
+      <point x="436.25939716312087" y="146.0" />
+      <point x="436.25939716312087" y="136.0" />
+      <point x="2176.5391843971634" y="136.0" />
+      <point x="-41.33333333333334" y="14.0" />
+    </edge>
+    <edge source="model.UserDB" target="model.User" relationship="CREATE">
+      <point x="27.25" y="-14.0" />
+      <point x="522.0929964539014" y="350.0" />
+      <point x="500.3429964539014" y="350.0" />
+      <point x="500.3429964539014" y="228.0" />
+      <point x="2213.666666666667" y="228.0" />
+      <point x="-28.666666666666515" y="14.0" />
+    </edge>
+    <edge source="Controller.DeleteUserServlet" target="model.Item" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="1252.0" y="45.0" />
+      <point x="1649.5297872340425" y="45.0" />
+      <point x="1649.5297872340425" y="35.0" />
+      <point x="2578.988120567376" y="35.0" />
+      <point x="-27.666666666666515" y="14.0" />
+    </edge>
+    <edge source="Controller.AddNewItemServlet" target="model.Item" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="1466.5" y="511.0" />
+      <point x="1422.5929964539014" y="511.0" />
+      <point x="1422.5929964539014" y="45.0" />
+      <point x="1649.5297872340425" y="45.0" />
+      <point x="1649.5297872340425" y="35.0" />
+      <point x="2578.988120567376" y="35.0" />
+      <point x="-27.666666666666515" y="14.0" />
+    </edge>
+    <edge source="model.ItemDB" target="model.Item" relationship="CREATE">
+      <point x="26.5" y="-14.0" />
+      <point x="1820.3429964539014" y="370.0" />
+      <point x="1834.0929964539014" y="370.0" />
+      <point x="1834.0929964539014" y="55.0" />
+      <point x="2606.6547872340425" y="55.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Controller.ClearCartServlet" target="model.Cart" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="2587.0" y="471.0" />
+      <point x="2543.0929964539014" y="471.0" />
+      <point x="2543.0929964539014" y="136.0" />
+      <point x="3096.946187943262" y="136.0" />
+      <point x="3096.946187943262" y="126.0" />
+      <point x="2879.1760638297874" y="126.0" />
+      <point x="27.666666666666515" y="14.0" />
+    </edge>
+    <edge source="Controller.UpdateStockServlet" target="model.User" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="814.5" y="238.0" />
+      <point x="2242.333333333333" y="238.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Controller.UpdateCartServlet" target="model.Cart" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="3381.7179964539014" y="136.0" />
+      <point x="3096.946187943262" y="136.0" />
+      <point x="3096.946187943262" y="126.0" />
+      <point x="2879.1760638297874" y="126.0" />
+      <point x="27.666666666666515" y="14.0" />
+    </edge>
+    <edge source="Controller.DeleteUserServlet" target="model.UserDB" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="1252.0" y="471.0" />
+      <point x="494.8429964539014" y="471.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Controller.ItemlistServlet" target="model.Item" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="1925.5" y="45.0" />
+      <point x="1649.5297872340425" y="45.0" />
+      <point x="1649.5297872340425" y="35.0" />
+      <point x="2578.988120567376" y="35.0" />
+      <point x="-27.666666666666515" y="14.0" />
+    </edge>
+    <edge source="model.User" target="model.Cart" relationship="CREATE">
+      <point x="28.666666666666515" y="-14.0" />
+      <point x="2271.0" y="146.0" />
+      <point x="2851.509397163121" y="146.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Controller.UpdateCartServlet" target="model.Item" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="3381.7179964539014" y="45.0" />
+      <point x="1649.5297872340425" y="45.0" />
+      <point x="1649.5297872340425" y="35.0" />
+      <point x="2578.988120567376" y="35.0" />
+      <point x="-27.666666666666515" y="14.0" />
+    </edge>
+    <edge source="Controller.UpdateItemGroupServlet" target="model.ItemDB" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="1706.5" y="581.0" />
+      <point x="1793.8429964539014" y="581.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Controller.LoginServlet" target="model.User" relationship="CREATE">
+      <point x="-36.5" y="-14.0" />
+      <point x="-89.5" y="581.0" />
+      <point x="-62.990602836879134" y="581.0" />
+      <point x="-62.990602836879134" y="248.0" />
+      <point x="500.3429964539014" y="248.0" />
+      <point x="500.3429964539014" y="228.0" />
+      <point x="2213.666666666667" y="228.0" />
+      <point x="-28.666666666666515" y="14.0" />
+    </edge>
+    <edge source="Controller.SendOrderServlet" target="model.Order" relationship="CREATE">
+      <point x="46.25" y="-14.0" />
+      <point x="3618.25" y="581.0" />
+      <point x="3572.5929964539014" y="581.0" />
+      <point x="3572.5929964539014" y="340.0" />
+      <point x="2917.134397163121" y="340.0" />
+      <point x="2917.134397163121" y="330.0" />
+      <point x="2673.759397163121" y="330.0" />
+      <point x="23.25" y="14.0" />
+    </edge>
+    <edge source="model.OrderDB" target="model.User" relationship="CREATE">
+      <point x="29.0" y="-14.0" />
+      <point x="3014.634397163121" y="370.0" />
+      <point x="2847.2179964539014" y="370.0" />
+      <point x="2847.2179964539014" y="320.0" />
+      <point x="2726.634397163121" y="320.0" />
+      <point x="2726.634397163121" y="248.0" />
+      <point x="500.3429964539014" y="248.0" />
+      <point x="500.3429964539014" y="228.0" />
+      <point x="2213.666666666667" y="228.0" />
+      <point x="-28.666666666666515" y="14.0" />
+    </edge>
+    <edge source="Controller.ClearCartServlet" target="model.Item" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="2587.0" y="471.0" />
+      <point x="2543.0929964539014" y="471.0" />
+      <point x="2543.0929964539014" y="45.0" />
+      <point x="1649.5297872340425" y="45.0" />
+      <point x="1649.5297872340425" y="35.0" />
+      <point x="2578.988120567376" y="35.0" />
+      <point x="-27.666666666666515" y="14.0" />
+    </edge>
+    <edge source="Controller.UpdateStockServlet" target="model.ItemDB" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="814.5" y="541.0" />
+      <point x="1793.8429964539014" y="541.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Controller.UpdateOrderStatusServlet" target="model.Item" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="2150.5" y="441.0" />
+      <point x="2115.0297872340425" y="441.0" />
+      <point x="2115.0297872340425" y="45.0" />
+      <point x="1649.5297872340425" y="45.0" />
+      <point x="1649.5297872340425" y="35.0" />
+      <point x="2578.988120567376" y="35.0" />
+      <point x="-27.666666666666515" y="14.0" />
+    </edge>
+    <edge source="Controller.ViewOrderServlet" target="model.Item" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="2387.5" y="441.0" />
+      <point x="2343.5929964539014" y="441.0" />
+      <point x="2343.5929964539014" y="45.0" />
+      <point x="1649.5297872340425" y="45.0" />
+      <point x="1649.5297872340425" y="35.0" />
+      <point x="2578.988120567376" y="35.0" />
+      <point x="-27.666666666666515" y="14.0" />
+    </edge>
+    <edge source="Controller.ItemlistServlet" target="model.ItemDB" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="1925.5" y="511.0" />
+      <point x="1793.8429964539014" y="511.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Controller.UpdateItemGroupServlet" target="model.Item" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="1706.5" y="511.0" />
+      <point x="1645.0391843971634" y="511.0" />
+      <point x="1645.0391843971634" y="45.0" />
+      <point x="1649.5297872340425" y="45.0" />
+      <point x="1649.5297872340425" y="35.0" />
+      <point x="2578.988120567376" y="35.0" />
+      <point x="-27.666666666666515" y="14.0" />
+    </edge>
+    <edge source="Controller.UpdateUserTypeServlet" target="model.UserDB" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="576.5" y="491.0" />
+      <point x="494.8429964539014" y="491.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="model.OrderDB" target="model.DBManager" relationship="DEPENDENCY">
+      <point x="-29.0" y="-14.0" />
+      <point x="2956.634397163121" y="350.0" />
+      <point x="1753.5929964539014" y="350.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="testThingy" target="model.Cart" relationship="DEPENDENCY">
+      <point x="33.25" y="-14.0" />
+      <point x="2931.134397163121" y="581.0" />
+      <point x="3037.4679964539014" y="581.0" />
+      <point x="3037.4679964539014" y="571.0" />
+      <point x="3096.946187943262" y="571.0" />
+      <point x="3096.946187943262" y="126.0" />
+      <point x="2879.1760638297874" y="126.0" />
+      <point x="27.666666666666515" y="14.0" />
+    </edge>
+    <edge source="model.OrderDB" target="model.Order" relationship="CREATE">
+      <point x="29.0" y="-14.0" />
+      <point x="3014.634397163121" y="370.0" />
+      <point x="2847.2179964539014" y="370.0" />
+      <point x="2847.2179964539014" y="360.0" />
+      <point x="2917.134397163121" y="360.0" />
+      <point x="2917.134397163121" y="330.0" />
+      <point x="2673.759397163121" y="330.0" />
+      <point x="23.25" y="14.0" />
+    </edge>
+    <edge source="Controller.UpdateOrderStatusServlet" target="model.ItemDB" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="2150.5" y="501.0" />
+      <point x="1793.8429964539014" y="501.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="model.User.UserType" target="model.User" relationship="INNER_CLASS">
+      <point x="0.0" y="14.0" />
+      <point x="2217.872517730497" y="146.0" />
+      <point x="2213.666666666667" y="146.0" />
+      <point x="-28.666666666666515" y="-14.0" />
+    </edge>
+    <edge source="Controller.LoginServlet" target="model.User.UserType" relationship="DEPENDENCY">
+      <point x="36.5" y="-14.0" />
+      <point x="-16.5" y="581.0" />
+      <point x="-51.990602836879134" y="581.0" />
+      <point x="-51.990602836879134" y="146.0" />
+      <point x="436.25939716312087" y="146.0" />
+      <point x="436.25939716312087" y="136.0" />
+      <point x="2176.5391843971634" y="136.0" />
+      <point x="-41.33333333333334" y="14.0" />
+    </edge>
+    <edge source="model.OrderDB" target="model.Cart" relationship="CREATE">
+      <point x="29.0" y="-14.0" />
+      <point x="3014.634397163121" y="370.0" />
+      <point x="2847.2179964539014" y="370.0" />
+      <point x="2847.2179964539014" y="320.0" />
+      <point x="2880.634397163121" y="320.0" />
+      <point x="2880.634397163121" y="146.0" />
+      <point x="2851.509397163121" y="146.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="model.UserDB" target="model.DBManager" relationship="DEPENDENCY">
+      <point x="-27.25" y="-14.0" />
+      <point x="467.5929964539014" y="370.0" />
+      <point x="489.3429964539014" y="370.0" />
+      <point x="489.3429964539014" y="360.0" />
+      <point x="1753.5929964539014" y="360.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Controller.ClearCartServlet" target="model.ItemDB" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="2587.0" y="481.0" />
+      <point x="1793.8429964539014" y="481.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Controller.cartServlet" target="model.Item" relationship="DEPENDENCY">
+      <point x="-33.25" y="-14.0" />
+      <point x="2770.384397163121" y="248.0" />
+      <point x="2798.134397163121" y="248.0" />
+      <point x="2798.134397163121" y="45.0" />
+      <point x="1649.5297872340425" y="45.0" />
+      <point x="1649.5297872340425" y="35.0" />
+      <point x="2578.988120567376" y="35.0" />
+      <point x="-27.666666666666515" y="14.0" />
+    </edge>
+    <edge source="Controller.UpdateUserTypeServlet" target="model.User" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="576.5" y="461.0" />
+      <point x="626.196187943262" y="461.0" />
+      <point x="626.196187943262" y="238.0" />
+      <point x="2242.333333333333" y="238.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Controller.SendOrderServlet" target="model.User" relationship="DEPENDENCY">
+      <point x="-46.25" y="-14.0" />
+      <point x="3525.75" y="581.0" />
+      <point x="3561.5929964539014" y="581.0" />
+      <point x="3561.5929964539014" y="238.0" />
+      <point x="2242.333333333333" y="238.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Controller.GoToShopSiteServlet" target="model.ItemDB" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="147.0" y="521.0" />
+      <point x="1793.8429964539014" y="521.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Controller.ViewOrderServlet" target="model.Order" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="2387.5" y="441.0" />
+      <point x="2398.0" y="441.0" />
+      <point x="2398.0" y="370.0" />
+      <point x="2627.259397163121" y="370.0" />
+      <point x="-23.25" y="14.0" />
+    </edge>
+    <edge source="model.User" target="model.Cart" relationship="TO_ONE">
+      <point x="0.0" y="-14.0" />
+      <point x="2242.333333333333" y="146.0" />
+      <point x="2250.779521276595" y="146.0" />
+      <point x="2250.779521276595" y="126.0" />
+      <point x="2823.8427304964544" y="126.0" />
+      <point x="-27.666666666666515" y="14.0" />
+    </edge>
+    <edge source="Controller.ViewOrderServlet" target="model.OrderDB" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="2387.5" y="571.0" />
+      <point x="2985.634397163121" y="571.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="model.Order" target="model.User" relationship="TO_ONE">
+      <point x="0.0" y="-14.0" />
+      <point x="2650.509397163121" y="228.0" />
+      <point x="2271.0" y="228.0" />
+      <point x="28.666666666666515" y="14.0" />
+    </edge>
+    <edge source="Controller.AddNewItemServlet" target="model.User" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="1466.5" y="238.0" />
+      <point x="2242.333333333333" y="238.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Controller.UpdateUserTypeServlet" target="model.ItemDB" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="576.5" y="531.0" />
+      <point x="1793.8429964539014" y="531.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Controller.LoginServlet" target="model.UserDB" relationship="DEPENDENCY">
+      <point x="36.5" y="-14.0" />
+      <point x="-16.5" y="581.0" />
+      <point x="-51.990602836879134" y="581.0" />
+      <point x="-51.990602836879134" y="501.0" />
+      <point x="494.8429964539014" y="501.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="testThingy" target="model.OrderDB" relationship="DEPENDENCY">
+      <point x="33.25" y="-14.0" />
+      <point x="2931.134397163121" y="581.0" />
+      <point x="3037.4679964539014" y="581.0" />
+      <point x="3037.4679964539014" y="551.0" />
+      <point x="2985.634397163121" y="551.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="testThingy" target="model.User" relationship="CREATE">
+      <point x="-33.25" y="-14.0" />
+      <point x="2864.634397163121" y="581.0" />
+      <point x="2728.25" y="581.0" />
+      <point x="2728.25" y="441.0" />
+      <point x="2593.509397163121" y="441.0" />
+      <point x="2593.509397163121" y="248.0" />
+      <point x="500.3429964539014" y="248.0" />
+      <point x="500.3429964539014" y="228.0" />
+      <point x="2213.666666666667" y="228.0" />
+      <point x="-28.666666666666515" y="14.0" />
+    </edge>
+    <edge source="model.User" target="model.User.UserType" relationship="TO_ONE">
+      <point x="0.0" y="-14.0" />
+      <point x="2242.333333333333" y="146.0" />
+      <point x="2250.779521276595" y="146.0" />
+      <point x="2250.779521276595" y="126.0" />
+      <point x="2259.2058510638303" y="126.0" />
+      <point x="41.33333333333334" y="14.0" />
+    </edge>
+    <edge source="Controller.addToCartServlet" target="model.Cart" relationship="CREATE">
+      <point x="46.25" y="-14.0" />
+      <point x="3219.4679964539014" y="581.0" />
+      <point x="3178.7179964539014" y="581.0" />
+      <point x="3178.7179964539014" y="146.0" />
+      <point x="2851.509397163121" y="146.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Controller.UpdateStockServlet" target="model.Item" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="814.5" y="511.0" />
+      <point x="770.5929964539014" y="511.0" />
+      <point x="770.5929964539014" y="45.0" />
+      <point x="1649.5297872340425" y="45.0" />
+      <point x="1649.5297872340425" y="35.0" />
+      <point x="2578.988120567376" y="35.0" />
+      <point x="-27.666666666666515" y="14.0" />
+    </edge>
+    <edge source="Controller.cartServlet" target="model.User" relationship="DEPENDENCY">
+      <point x="-33.25" y="-14.0" />
+      <point x="2770.384397163121" y="248.0" />
+      <point x="2798.134397163121" y="248.0" />
+      <point x="2798.134397163121" y="218.0" />
+      <point x="2242.333333333333" y="218.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Controller.cartServlet" target="model.Cart" relationship="CREATE">
+      <point x="33.25" y="-14.0" />
+      <point x="2836.884397163121" y="228.0" />
+      <point x="2829.634397163121" y="228.0" />
+      <point x="2829.634397163121" y="146.0" />
+      <point x="2851.509397163121" y="146.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Controller.AddNewItemServlet" target="model.ItemDB" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="1466.5" y="571.0" />
+      <point x="1793.8429964539014" y="571.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Controller.HandleUsersServlet" target="model.UserDB" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="1037.0" y="481.0" />
+      <point x="494.8429964539014" y="481.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="testThingy" target="model.Order" relationship="CREATE">
+      <point x="-33.25" y="-14.0" />
+      <point x="2864.634397163121" y="581.0" />
+      <point x="2728.25" y="581.0" />
+      <point x="2728.25" y="441.0" />
+      <point x="2917.134397163121" y="441.0" />
+      <point x="2917.134397163121" y="330.0" />
+      <point x="2673.759397163121" y="330.0" />
+      <point x="23.25" y="14.0" />
+    </edge>
+    <edge source="Controller.HandleUsersServlet" target="model.Item" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="1037.0" y="45.0" />
+      <point x="1649.5297872340425" y="45.0" />
+      <point x="1649.5297872340425" y="35.0" />
+      <point x="2578.988120567376" y="35.0" />
+      <point x="-27.666666666666515" y="14.0" />
+    </edge>
+    <edge source="Controller.ViewOrderServlet" target="model.ItemDB" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="2387.5" y="491.0" />
+      <point x="1793.8429964539014" y="491.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Controller.addToCartServlet" target="model.Item" relationship="CREATE">
+      <point x="46.25" y="-14.0" />
+      <point x="3219.4679964539014" y="581.0" />
+      <point x="3178.7179964539014" y="581.0" />
+      <point x="3178.7179964539014" y="55.0" />
+      <point x="2606.6547872340425" y="55.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="model.UserDB" target="model.User.UserType" relationship="DEPENDENCY">
+      <point x="-27.25" y="-14.0" />
+      <point x="467.5929964539014" y="370.0" />
+      <point x="489.3429964539014" y="370.0" />
+      <point x="489.3429964539014" y="146.0" />
+      <point x="436.25939716312087" y="146.0" />
+      <point x="436.25939716312087" y="136.0" />
+      <point x="2176.5391843971634" y="136.0" />
+      <point x="-41.33333333333334" y="14.0" />
+    </edge>
+    <edge source="Controller.UpdateCartServlet" target="model.User" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="3381.7179964539014" y="238.0" />
+      <point x="2242.333333333333" y="238.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Controller.ViewOrderServlet" target="model.User" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="2387.5" y="441.0" />
+      <point x="2279.009397163121" y="441.0" />
+      <point x="2279.009397163121" y="238.0" />
+      <point x="2242.333333333333" y="238.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="model.OrderDB" target="model.Item" relationship="CREATE">
+      <point x="29.0" y="-14.0" />
+      <point x="3014.634397163121" y="370.0" />
+      <point x="2847.2179964539014" y="370.0" />
+      <point x="2847.2179964539014" y="320.0" />
+      <point x="2906.634397163121" y="320.0" />
+      <point x="2906.634397163121" y="55.0" />
+      <point x="2606.6547872340425" y="55.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Controller.ClearCartServlet" target="model.User" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="2587.0" y="471.0" />
+      <point x="2543.0929964539014" y="471.0" />
+      <point x="2543.0929964539014" y="238.0" />
+      <point x="2242.333333333333" y="238.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Controller.addToCartServlet" target="model.ItemDB" relationship="DEPENDENCY">
+      <point x="-46.25" y="-14.0" />
+      <point x="3126.9679964539014" y="581.0" />
+      <point x="3167.7179964539014" y="581.0" />
+      <point x="3167.7179964539014" y="461.0" />
+      <point x="1793.8429964539014" y="461.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Controller.RegisterServlet" target="model.UserDB" relationship="DEPENDENCY">
+      <point x="-41.5" y="-14.0" />
+      <point x="315.5" y="581.0" />
+      <point x="347.00939716312087" y="581.0" />
+      <point x="347.00939716312087" y="511.0" />
+      <point x="494.8429964539014" y="511.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Controller.UpdateOrderStatusServlet" target="model.User" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="2150.5" y="441.0" />
+      <point x="2211.3631205673755" y="441.0" />
+      <point x="2211.3631205673755" y="238.0" />
+      <point x="2242.333333333333" y="238.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Controller.RegisterServlet" target="model.User" relationship="CREATE">
+      <point x="41.5" y="-14.0" />
+      <point x="398.5" y="491.0" />
+      <point x="358.00939716312087" y="491.0" />
+      <point x="358.00939716312087" y="248.0" />
+      <point x="500.3429964539014" y="248.0" />
+      <point x="500.3429964539014" y="228.0" />
+      <point x="2213.666666666667" y="228.0" />
+      <point x="-28.666666666666515" y="14.0" />
+    </edge>
+    <edge source="Controller.ItemlistServlet" target="model.User" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="1925.5" y="581.0" />
+      <point x="1975.196187943262" y="581.0" />
+      <point x="1975.196187943262" y="238.0" />
+      <point x="2242.333333333333" y="238.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Controller.addToCartServlet" target="model.User" relationship="DEPENDENCY">
+      <point x="-46.25" y="-14.0" />
+      <point x="3126.9679964539014" y="581.0" />
+      <point x="3167.7179964539014" y="581.0" />
+      <point x="3167.7179964539014" y="238.0" />
+      <point x="2242.333333333333" y="238.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Controller.UpdateUserTypeServlet" target="model.Item" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="576.5" y="461.0" />
+      <point x="609.0" y="461.0" />
+      <point x="609.0" y="45.0" />
+      <point x="1649.5297872340425" y="45.0" />
+      <point x="1649.5297872340425" y="35.0" />
+      <point x="2578.988120567376" y="35.0" />
+      <point x="-27.666666666666515" y="14.0" />
+    </edge>
+    <edge source="Controller.UpdateCartServlet" target="model.ItemDB" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="3381.7179964539014" y="451.0" />
+      <point x="1793.8429964539014" y="451.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Controller.UpdateOrderStatusServlet" target="model.OrderDB" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="2150.5" y="561.0" />
+      <point x="2985.634397163121" y="561.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Controller.DeleteUserServlet" target="model.ItemDB" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="1252.0" y="561.0" />
+      <point x="1793.8429964539014" y="561.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Controller.UpdateItemGroupServlet" target="model.User" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="1706.5" y="511.0" />
+      <point x="1662.5929964539014" y="511.0" />
+      <point x="1662.5929964539014" y="238.0" />
+      <point x="2242.333333333333" y="238.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="model.ItemDB" target="model.DBManager" relationship="DEPENDENCY">
+      <point x="-26.5" y="-14.0" />
+      <point x="1767.3429964539014" y="350.0" />
+      <point x="1753.5929964539014" y="350.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Controller.SendOrderServlet" target="model.Cart" relationship="DEPENDENCY">
+      <point x="-46.25" y="-14.0" />
+      <point x="3525.75" y="581.0" />
+      <point x="3561.5929964539014" y="581.0" />
+      <point x="3561.5929964539014" y="136.0" />
+      <point x="3096.946187943262" y="136.0" />
+      <point x="3096.946187943262" y="126.0" />
+      <point x="2879.1760638297874" y="126.0" />
+      <point x="27.666666666666515" y="14.0" />
+    </edge>
+    <edge source="model.Cart" target="model.Item" relationship="TO_MANY">
+      <point x="0.0" y="-14.0" />
+      <point x="2851.509397163121" y="35.0" />
+      <point x="2634.321453900709" y="35.0" />
+      <point x="27.666666666666515" y="14.0" />
+    </edge>
+    <edge source="Controller.GoToShopSiteServlet" target="model.Item" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="147.0" y="45.0" />
+      <point x="1649.5297872340425" y="45.0" />
+      <point x="1649.5297872340425" y="35.0" />
+      <point x="2578.988120567376" y="35.0" />
+      <point x="-27.666666666666515" y="14.0" />
+    </edge>
+    <edge source="Controller.RegisterServlet" target="model.User.UserType" relationship="DEPENDENCY">
+      <point x="-41.5" y="-14.0" />
+      <point x="315.5" y="581.0" />
+      <point x="347.00939716312087" y="581.0" />
+      <point x="347.00939716312087" y="146.0" />
+      <point x="436.25939716312087" y="146.0" />
+      <point x="436.25939716312087" y="136.0" />
+      <point x="2176.5391843971634" y="136.0" />
+      <point x="-41.33333333333334" y="14.0" />
+    </edge>
+    <edge source="testThingy" target="model.Item" relationship="CREATE">
+      <point x="-33.25" y="-14.0" />
+      <point x="2864.634397163121" y="581.0" />
+      <point x="2728.25" y="581.0" />
+      <point x="2728.25" y="441.0" />
+      <point x="2715.634397163121" y="441.0" />
+      <point x="2715.634397163121" y="55.0" />
+      <point x="2606.6547872340425" y="55.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Controller.DeleteUserServlet" target="model.User" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.0" />
+      <point x="1252.0" y="238.0" />
+      <point x="2242.333333333333" y="238.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.3980035833120041" showDependencies="true" x="1817.5000000000002" y="335.5000000000001" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
